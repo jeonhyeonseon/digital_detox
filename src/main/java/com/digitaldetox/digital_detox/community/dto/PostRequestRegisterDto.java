@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostRequestDto {
+public class PostRequestRegisterDto {
 
     private Long memberId;
 

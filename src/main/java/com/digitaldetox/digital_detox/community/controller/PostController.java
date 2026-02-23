@@ -1,6 +1,6 @@
 package com.digitaldetox.digital_detox.community.controller;
 
-import com.digitaldetox.digital_detox.community.dto.PostRequestDto;
+import com.digitaldetox.digital_detox.community.dto.PostRequestRegisterDto;
 import com.digitaldetox.digital_detox.community.dto.PostResponseDetailDto;
 import com.digitaldetox.digital_detox.community.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +23,9 @@ public class PostController {
     }
 
     @PostMapping
-    public String registerPost(@ModelAttribute PostRequestDto postRequestDto) {
+    public String registerPost(@ModelAttribute PostRequestRegisterDto postRequestRegisterDto) {
 
-        postService.registerPost(postRequestDto);
+        postService.registerPost(postRequestRegisterDto);
 
         return "redirect:/register";
     }

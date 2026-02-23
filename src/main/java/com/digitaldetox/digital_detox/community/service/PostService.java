@@ -1,7 +1,7 @@
 package com.digitaldetox.digital_detox.community.service;
 
 import com.digitaldetox.digital_detox.community.domain.Post;
-import com.digitaldetox.digital_detox.community.dto.PostRequestDto;
+import com.digitaldetox.digital_detox.community.dto.PostRequestRegisterDto;
 import com.digitaldetox.digital_detox.community.dto.PostResponseDetailDto;
 import com.digitaldetox.digital_detox.community.repository.PostRepository;
 import jakarta.transaction.Transactional;
@@ -15,9 +15,9 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public void registerPost(PostRequestDto postRequestDto) {
+    public void registerPost(PostRequestRegisterDto postRequestRegisterDto) {
 
-        Post post = postRequestDto.toPost();
+        Post post = postRequestRegisterDto.toPost();
 
         postRepository.save(post);
     }
