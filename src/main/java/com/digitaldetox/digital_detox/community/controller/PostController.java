@@ -2,6 +2,7 @@ package com.digitaldetox.digital_detox.community.controller;
 
 import com.digitaldetox.digital_detox.community.dto.PostRequestRegisterDto;
 import com.digitaldetox.digital_detox.community.dto.PostResponseDetailDto;
+import com.digitaldetox.digital_detox.community.dto.PostUpdateRequestDto;
 import com.digitaldetox.digital_detox.community.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,5 +41,25 @@ public class PostController {
         model.addAttribute("post", detailPost);
 
         return "community/detail";
+    }
+
+    @GetMapping("/{postId}/edit")
+    public String showPostUpdateFrm(@PathVariable Long postId,
+                                  Model model) {
+
+        PostUpdateRequestDto postUpdateRequestDto = postService.getPostForUpdate(postId);
+
+        model.addAttribute("updatePost", postUpdateRequestDto);
+
+        return "community/edit";
+    }
+
+    @PostMapping("/{postId}/edit")
+    public String updatePost(@PathVariable Long postId,
+                             @ModelAttribute PostUpdateRequestDto postUpdateRequestDto) {
+
+        postService.updatePost(postId, postUpdateRequestDto);
+
+        return "redirect:/community" + postId;
     }
 }
