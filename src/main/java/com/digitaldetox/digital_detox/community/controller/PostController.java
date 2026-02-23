@@ -1,15 +1,12 @@
 package com.digitaldetox.digital_detox.community.controller;
 
-import com.digitaldetox.digital_detox.community.domain.Post;
 import com.digitaldetox.digital_detox.community.dto.PostRequestDto;
+import com.digitaldetox.digital_detox.community.dto.PostResponseDetailDto;
 import com.digitaldetox.digital_detox.community.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -31,5 +28,13 @@ public class PostController {
         postService.registerPost(postRequestDto);
 
         return "redirect:/register";
+    }
+
+    @GetMapping
+    public String detailPost(@PathVariable Long postId) {
+
+        PostResponseDetailDto detailPost = postService.getPostDetail(postId);
+
+        return "community/detail";
     }
 }
