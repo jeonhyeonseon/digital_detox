@@ -6,6 +6,7 @@ import com.digitaldetox.digital_detox.community.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -30,10 +31,13 @@ public class PostController {
         return "redirect:/register";
     }
 
-    @GetMapping
-    public String detailPost(@PathVariable Long postId) {
+    @GetMapping("/{postId}")
+    public String detailPost(@PathVariable Long postId,
+                             Model model) {
 
         PostResponseDetailDto detailPost = postService.getPostDetail(postId);
+
+        model.addAttribute("post", detailPost);
 
         return "community/detail";
     }
