@@ -33,4 +33,9 @@ public class Post {
     @CreatedDate
     private LocalDate createdAt;
 
+    public void updatePost(PostCategory postCategory, String title, String content) {
+        this.postCategory = postCategory;
+        this.title = title;
+        this.content = content;
+    }
 }

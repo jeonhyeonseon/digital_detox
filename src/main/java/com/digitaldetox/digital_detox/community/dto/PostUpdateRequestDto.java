@@ -11,25 +11,21 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostRequestDto {
+public class PostUpdateRequestDto {
 
+    private Long postId;
     private Long memberId;
-
     private PostCategory postCategory;
-
     private String title;
-
     private String content;
 
-    private LocalDate createdAt;
-
-    public Post toPost() {
-        return Post.builder()
-                .memberId(this.memberId)
-                .postCategory(this.postCategory)
-                .title(this.title)
-                .content(this.content)
-                .createdAt(LocalDate.now())
-                .build();
+    public static PostUpdateRequestDto fromPost(Post post) {
+        return new PostUpdateRequestDto(
+                post.getPostId(),
+                post.getMemberId(),
+                post.getPostCategory(),
+                post.getTitle(),
+                post.getContent()
+        );
     }
 }
