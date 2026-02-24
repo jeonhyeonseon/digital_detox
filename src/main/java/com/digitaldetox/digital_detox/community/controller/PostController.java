@@ -1,65 +1,44 @@
 package com.digitaldetox.digital_detox.community.controller;
 
-import com.digitaldetox.digital_detox.community.dto.PostRequestRegisterDto;
-import com.digitaldetox.digital_detox.community.dto.PostResponseDetailDto;
+import com.digitaldetox.digital_detox.community.dto.PostRegisterRequestDto;
+import com.digitaldetox.digital_detox.community.dto.PostDetailResponseDto;
 import com.digitaldetox.digital_detox.community.dto.PostUpdateRequestDto;
 import com.digitaldetox.digital_detox.community.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/community")
 @RequiredArgsConstructor
 public class PostController {
 
     private final PostService postService;
 
-    @GetMapping
-    public String showPostFrm() {
-
-        return "community/register";
-    }
-
     @PostMapping
-    public String registerPost(@ModelAttribute PostRequestRegisterDto postRequestRegisterDto) {
+    public Map<String, Long> registerPost(@RequestBody PostRegisterRequestDto postRegisterRequestDto) {
 
-        postService.registerPost(postRequestRegisterDto);
+        Long postId = postService.registerPost(postRegisterRequestDto);
 
-        return "redirect:/register";
+        return Map.of("postId", postId);
     }
 
     @GetMapping("/{postId}")
-    public String detailPost(@PathVariable Long postId,
-                             Model model) {
+    public PostDetailResponseDto detailPost(@PathVariable Long postId) {
 
-        PostResponseDetailDto detailPost = postService.getPostDetail(postId);
-
-        model.addAttribute("post", detailPost);
-
-        return "community/detail";
+        return postService.getPostDetail(postId);
     }
 
-    @GetMapping("/{postId}/edit")
-    public String showPostUpdateFrm(@PathVariable Long postId,
-                                  Model model) {
-
-        PostUpdateRequestDto postUpdateRequestDto = postService.getPostForUpdate(postId);
-
-        model.addAttribute("updatePost", postUpdateRequestDto);
-
-        return "community/edit";
-    }
-
-    @PostMapping("/{postId}/edit")
-    public String updatePost(@PathVariable Long postId,
-                             @ModelAttribute PostUpdateRequestDto postUpdateRequestDto) {
+    @PatchMapping("/{postId}")
+    public Map<String, Boolean> showPostUpdateFrm(@PathVariable Long postId,
+                                                  @ModelAttribute PostUpdateRequestDto postUpdateRequestDto) {
 
         postService.updatePost(postId, postUpdateRequestDto);
 
-        return "redirect:/community" + postId;
+        return Map.of("updated", true);
     }
+
 }
