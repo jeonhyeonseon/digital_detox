@@ -1,10 +1,10 @@
-package com.digitaldetox.digital_detox.community.service;
+package com.digitaldetox.digital_detox.community.post.service;
 
-import com.digitaldetox.digital_detox.community.domain.Post;
-import com.digitaldetox.digital_detox.community.dto.PostRegisterRequestDto;
-import com.digitaldetox.digital_detox.community.dto.PostDetailResponseDto;
-import com.digitaldetox.digital_detox.community.dto.PostUpdateRequestDto;
-import com.digitaldetox.digital_detox.community.repository.PostRepository;
+import com.digitaldetox.digital_detox.community.post.domain.Post;
+import com.digitaldetox.digital_detox.community.post.dto.PostRegisterRequestDto;
+import com.digitaldetox.digital_detox.community.post.dto.PostDetailResponseDto;
+import com.digitaldetox.digital_detox.community.post.dto.PostUpdateRequestDto;
+import com.digitaldetox.digital_detox.community.post.repository.PostRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

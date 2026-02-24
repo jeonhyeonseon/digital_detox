@@ -1,6 +1,6 @@
-package com.digitaldetox.digital_detox.community.dto;
+package com.digitaldetox.digital_detox.community.post.dto;
 
-import com.digitaldetox.digital_detox.community.domain.PostCategory;
+import com.digitaldetox.digital_detox.community.post.domain.PostCategory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

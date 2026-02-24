@@ -1,9 +1,9 @@
-package com.digitaldetox.digital_detox.community.controller;
+package com.digitaldetox.digital_detox.community.post.controller;
 
-import com.digitaldetox.digital_detox.community.dto.PostRegisterRequestDto;
-import com.digitaldetox.digital_detox.community.dto.PostDetailResponseDto;
-import com.digitaldetox.digital_detox.community.dto.PostUpdateRequestDto;
-import com.digitaldetox.digital_detox.community.service.PostService;
+import com.digitaldetox.digital_detox.community.post.dto.PostRegisterRequestDto;
+import com.digitaldetox.digital_detox.community.post.dto.PostDetailResponseDto;
+import com.digitaldetox.digital_detox.community.post.dto.PostUpdateRequestDto;
+import com.digitaldetox.digital_detox.community.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

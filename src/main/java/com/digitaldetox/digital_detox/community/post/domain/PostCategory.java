@@ -1,4 +1,4 @@
-package com.digitaldetox.digital_detox.community.domain;
+package com.digitaldetox.digital_detox.community.post.domain;
 
 import lombok.Getter;
 
