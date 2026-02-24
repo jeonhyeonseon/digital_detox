@@ -34,4 +34,9 @@ public class Comment {
         this.memberId = memberId;
         this.content = createdRequestDto.getContent();
     }
+
+    public void updateContent(String content) {
+        this.content = content;
+        this.updatedAt = LocalDateTime.now();
+    }
 }
