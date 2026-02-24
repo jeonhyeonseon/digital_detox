@@ -23,7 +23,7 @@ public class PostService {
         return saved.getPostId();
     }
 
-    public PostDetailResponseDto getPostDetail(Long postId) {
+    public PostDetailResponseDto detailPost(Long postId) {
 
         Post post = postRepository.findById(postId)
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
