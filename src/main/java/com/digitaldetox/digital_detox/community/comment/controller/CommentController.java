@@ -36,4 +36,12 @@ public class CommentController {
 
         return Map.of("updated", true);
     }
+
+    @DeleteMapping("/{commentId}")
+    public Map<String, Boolean> deleteComment(@PathVariable Long commentId) {
+
+        commentService.deleteComment(commentId);
+
+        return Map.of("deleted", true);
+    }
 }
