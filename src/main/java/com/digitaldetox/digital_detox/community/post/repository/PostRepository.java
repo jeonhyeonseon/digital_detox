@@ -1,6 +1,6 @@
-package com.digitaldetox.digital_detox.community.repository;
+package com.digitaldetox.digital_detox.community.post.repository;
 
-import com.digitaldetox.digital_detox.community.domain.Post;
+import com.digitaldetox.digital_detox.community.post.domain.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
