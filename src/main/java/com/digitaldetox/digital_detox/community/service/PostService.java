@@ -1,8 +1,8 @@
 package com.digitaldetox.digital_detox.community.service;
 
 import com.digitaldetox.digital_detox.community.domain.Post;
-import com.digitaldetox.digital_detox.community.dto.PostRequestRegisterDto;
-import com.digitaldetox.digital_detox.community.dto.PostResponseDetailDto;
+import com.digitaldetox.digital_detox.community.dto.PostRegisterRequestDto;
+import com.digitaldetox.digital_detox.community.dto.PostDetailResponseDto;
 import com.digitaldetox.digital_detox.community.dto.PostUpdateRequestDto;
 import com.digitaldetox.digital_detox.community.repository.PostRepository;
 import jakarta.transaction.Transactional;
@@ -16,34 +16,26 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public void registerPost(PostRequestRegisterDto postRequestRegisterDto) {
+    public Long registerPost(PostRegisterRequestDto postRegisterRequestDto) {
 
-        Post post = postRequestRegisterDto.toPost();
-
-        postRepository.save(post);
+        Post post = postRegisterRequestDto.toPost();
+        Post saved = postRepository.save(post);
+        return saved.getPostId();
     }
 
-    public PostResponseDetailDto getPostDetail(Long postId) {
+    public PostDetailResponseDto getPostDetail(Long postId) {
 
         Post post = postRepository.findById(postId)
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
 
-        return PostResponseDetailDto.fromPost(post);
+        return PostDetailResponseDto.fromPost(post);
     }
 
-    public PostUpdateRequestDto getPostForUpdate(Long postId) {
+    public void updatePost(Long postId, PostUpdateRequestDto updateRequestDto) {
 
         Post post = postRepository.findById(postId)
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
 
-        return PostUpdateRequestDto.fromPost(post);
-    }
-
-    public void updatePost(Long postId, PostUpdateRequestDto postUpdateRequestDto) {
-
-        Post post = postRepository.findById(postId)
-                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
-
-        post.updatePost(postUpdateRequestDto.getPostCategory(), postUpdateRequestDto.getTitle(), postUpdateRequestDto.getContent());
+        post.updatePost(updateRequestDto.getPostCategory(), updateRequestDto.getTitle(), updateRequestDto.getContent());
     }
 }

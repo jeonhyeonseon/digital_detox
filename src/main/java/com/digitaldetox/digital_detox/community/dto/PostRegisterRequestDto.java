@@ -6,24 +6,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostResponseDetailDto {
+public class PostRegisterRequestDto {
 
-    private Long postId;
     private Long memberId;
+
     private PostCategory postCategory;
+
     private String title;
+
     private String content;
 
-    public static PostResponseDetailDto fromPost(Post post) {
-        return new PostResponseDetailDto(
-                post.getPostId(),
-                post.getMemberId(),
-                post.getPostCategory(),
-                post.getTitle(),
-                post.getContent()
-        );
+    private LocalDate createdAt;
+
+    public Post toPost() {
+        return Post.builder()
+                .memberId(this.memberId)
+                .postCategory(this.postCategory)
+                .title(this.title)
+                .content(this.content)
+                .createdAt(LocalDate.now())
+                .build();
     }
 }
