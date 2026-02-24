@@ -1,6 +1,7 @@
 package com.digitaldetox.digital_detox.community.comment.service;
 
 import com.digitaldetox.digital_detox.community.comment.dto.CommentCreatedRequestDto;
+import com.digitaldetox.digital_detox.community.comment.dto.CommentUpdateRequestDto;
 import com.digitaldetox.digital_detox.community.comment.entity.Comment;
 import com.digitaldetox.digital_detox.community.comment.repository.CommentRepository;
 import jakarta.transaction.Transactional;
@@ -21,5 +22,13 @@ public class CommentService {
         Comment saved = commentRepository.save(comment);
 
         return saved.getCommentId();
+    }
+
+    public void updatedComment(Long commentId, CommentUpdateRequestDto updateRequestDto) {
+
+        Comment comment = commentRepository.findById(commentId)
+                            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
+
+        comment.updateContent(updateRequestDto.getContent());
     }
 }

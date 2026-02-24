@@ -1,6 +1,7 @@
 package com.digitaldetox.digital_detox.community.comment.controller;
 
 import com.digitaldetox.digital_detox.community.comment.dto.CommentCreatedRequestDto;
+import com.digitaldetox.digital_detox.community.comment.dto.CommentUpdateRequestDto;
 import com.digitaldetox.digital_detox.community.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,5 +26,14 @@ public class CommentController {
         Long commentId = commentService.createComment(postId, memberId, createdRequestDto);
 
         return Map.of("commentId", commentId);
+    }
+
+    @PutMapping("/{commentId}")
+    public Map<String, Boolean> updateComment(@PathVariable Long commentId,
+                                              @RequestBody CommentUpdateRequestDto updateRequestDto) {
+
+        commentService.updatedComment(commentId, updateRequestDto);
+
+        return Map.of("updated", true);
     }
 }
