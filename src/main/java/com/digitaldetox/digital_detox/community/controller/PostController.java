@@ -29,16 +29,24 @@ public class PostController {
     @GetMapping("/{postId}")
     public PostDetailResponseDto detailPost(@PathVariable Long postId) {
 
-        return postService.getPostDetail(postId);
+        return postService.detailPost(postId);
     }
 
     @PatchMapping("/{postId}")
-    public Map<String, Boolean> showPostUpdateFrm(@PathVariable Long postId,
+    public Map<String, Boolean> updatePost(@PathVariable Long postId,
                                                   @ModelAttribute PostUpdateRequestDto postUpdateRequestDto) {
 
         postService.updatePost(postId, postUpdateRequestDto);
 
         return Map.of("updated", true);
+    }
+
+    @DeleteMapping("/{postId}")
+    public Map<String, Boolean> deletePost(@PathVariable Long postId) {
+
+        postService.deletePost(postId);
+
+        return Map.of("deleted", true);
     }
 
 }

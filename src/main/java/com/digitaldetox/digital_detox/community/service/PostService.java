@@ -23,7 +23,7 @@ public class PostService {
         return saved.getPostId();
     }
 
-    public PostDetailResponseDto getPostDetail(Long postId) {
+    public PostDetailResponseDto detailPost(Long postId) {
 
         Post post = postRepository.findById(postId)
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
@@ -37,5 +37,13 @@ public class PostService {
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
 
         post.updatePost(updateRequestDto.getPostCategory(), updateRequestDto.getTitle(), updateRequestDto.getContent());
+    }
+
+    public void deletePost(Long postId) {
+
+        Post post = postRepository.findById(postId)
+                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
+
+        postRepository.delete(post);
     }
 }
