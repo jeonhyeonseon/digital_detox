@@ -41,4 +41,12 @@ public class PostController {
         return Map.of("updated", true);
     }
 
+    @DeleteMapping("/{postId}")
+    public Map<String, Boolean> deletePost(@PathVariable Long postId) {
+
+        postService.deletePost(postId);
+
+        return Map.of("deleted", true);
+    }
+
 }

@@ -38,4 +38,12 @@ public class PostService {
 
         post.updatePost(updateRequestDto.getPostCategory(), updateRequestDto.getTitle(), updateRequestDto.getContent());
     }
+
+    public void deletePost(Long postId) {
+
+        Post post = postRepository.findById(postId)
+                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
+
+        postRepository.delete(post);
+    }
 }
