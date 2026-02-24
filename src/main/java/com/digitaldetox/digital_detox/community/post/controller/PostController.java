@@ -32,9 +32,9 @@ public class PostController {
         return postService.detailPost(postId);
     }
 
-    @PatchMapping("/{postId}")
+    @PutMapping("/{postId}")
     public Map<String, Boolean> updatePost(@PathVariable Long postId,
-                                                  @ModelAttribute PostUpdateRequestDto postUpdateRequestDto) {
+                                           @ModelAttribute PostUpdateRequestDto postUpdateRequestDto) {
 
         postService.updatePost(postId, postUpdateRequestDto);
 

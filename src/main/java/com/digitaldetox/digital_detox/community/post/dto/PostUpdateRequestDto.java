@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostUpdateRequestDto {
 
-    private Long postId;
     private Long memberId;
     private PostCategory postCategory;
     private String title;
