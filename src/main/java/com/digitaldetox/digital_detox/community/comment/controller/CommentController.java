@@ -1,12 +1,14 @@
 package com.digitaldetox.digital_detox.community.comment.controller;
 
 import com.digitaldetox.digital_detox.community.comment.dto.CommentCreatedRequestDto;
+import com.digitaldetox.digital_detox.community.comment.dto.CommentListResponseDto;
 import com.digitaldetox.digital_detox.community.comment.dto.CommentUpdateRequestDto;
 import com.digitaldetox.digital_detox.community.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -16,6 +18,11 @@ import java.util.Map;
 public class CommentController {
 
     private final CommentService commentService;
+
+    @GetMapping
+    public List<CommentListResponseDto> listComment() {
+        return commentService.listComment();
+    }
 
     @PostMapping
     public Map<String, Long> createComment(@PathVariable Long postId,

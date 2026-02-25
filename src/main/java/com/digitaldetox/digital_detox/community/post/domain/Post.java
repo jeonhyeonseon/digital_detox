@@ -27,8 +27,11 @@ public class Post {
     private PostCategory postCategory;
 
     private String title;
-
     private String content;
+
+    private int commentCount;
+    private int likeCount;
+    private int viewCount;
 
     @CreatedDate
     private LocalDate createdAt;
