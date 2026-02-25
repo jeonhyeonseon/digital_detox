@@ -1,6 +1,7 @@
 package com.digitaldetox.digital_detox.community.post.service;
 
 import com.digitaldetox.digital_detox.community.post.domain.Post;
+import com.digitaldetox.digital_detox.community.post.dto.PostListResponseDto;
 import com.digitaldetox.digital_detox.community.post.dto.PostRegisterRequestDto;
 import com.digitaldetox.digital_detox.community.post.dto.PostDetailResponseDto;
 import com.digitaldetox.digital_detox.community.post.dto.PostUpdateRequestDto;
@@ -9,12 +10,23 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
+
+    public List<PostListResponseDto> listPost() {
+
+        return postRepository.findAll()
+                            .stream().map(PostListResponseDto::fromPost)
+                            .toList();
+
+    }
 
     public Long registerPost(PostRegisterRequestDto postRegisterRequestDto) {
 
