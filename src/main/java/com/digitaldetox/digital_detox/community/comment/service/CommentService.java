@@ -1,6 +1,7 @@
 package com.digitaldetox.digital_detox.community.comment.service;
 
 import com.digitaldetox.digital_detox.community.comment.dto.CommentCreatedRequestDto;
+import com.digitaldetox.digital_detox.community.comment.dto.CommentListResponseDto;
 import com.digitaldetox.digital_detox.community.comment.dto.CommentUpdateRequestDto;
 import com.digitaldetox.digital_detox.community.comment.entity.Comment;
 import com.digitaldetox.digital_detox.community.comment.repository.CommentRepository;
@@ -8,12 +9,22 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class CommentService {
 
     private final CommentRepository commentRepository;
+
+    public List<CommentListResponseDto> listComment() {
+
+        return commentRepository.findAll()
+                                            .stream().map(CommentListResponseDto::fromComment)
+                                            .toList();
+
+    }
 
     public Long createComment(Long postId, Long memberId, CommentCreatedRequestDto createdRequestDto) {
 
