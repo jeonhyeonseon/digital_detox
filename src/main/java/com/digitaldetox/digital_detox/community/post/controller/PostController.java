@@ -1,5 +1,6 @@
 package com.digitaldetox.digital_detox.community.post.controller;
 
+import com.digitaldetox.digital_detox.community.dto.CommunityPostListResponseDto;
 import com.digitaldetox.digital_detox.community.post.dto.PostListResponseDto;
 import com.digitaldetox.digital_detox.community.post.dto.PostRegisterRequestDto;
 import com.digitaldetox.digital_detox.community.post.dto.PostDetailResponseDto;
@@ -21,7 +22,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
-    public List<PostListResponseDto> listPost() {
+    public CommunityPostListResponseDto listPost() {
         return postService.listPost();
     }
 
