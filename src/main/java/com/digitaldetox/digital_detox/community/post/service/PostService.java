@@ -1,5 +1,6 @@
 package com.digitaldetox.digital_detox.community.post.service;
 
+import com.digitaldetox.digital_detox.community.dto.CommunityPostListResponseDto;
 import com.digitaldetox.digital_detox.community.post.domain.Post;
 import com.digitaldetox.digital_detox.community.post.dto.PostListResponseDto;
 import com.digitaldetox.digital_detox.community.post.dto.PostRegisterRequestDto;
@@ -19,12 +20,24 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public List<PostListResponseDto> listPost() {
+    public CommunityPostListResponseDto listPost() {
 
-        return postRepository.findAll()
-                            .stream().map(PostListResponseDto::fromPost)
-                            .toList();
+        // 인기글
+        List<PostListResponseDto> popular = postRepository.findTop5ByOrderByLikeCountDescCreatedAtDesc()
+                                                                        .stream()
+                                                                        .map(PostListResponseDto::fromPost)
+                                                                        .toList();
 
+        // 최신글
+        List<PostListResponseDto> latest = postRepository.findTop5ByOrderByCreatedAtDesc()
+                                                                        .stream()
+                                                                        .map(PostListResponseDto::fromPost)
+                                                                        .toList();
+
+        return CommunityPostListResponseDto.builder()
+                                            .popularPosts(popular)
+                                            .latestPosts(latest)
+                                            .build();
     }
 
     public Long registerPost(PostRegisterRequestDto postRegisterRequestDto) {
