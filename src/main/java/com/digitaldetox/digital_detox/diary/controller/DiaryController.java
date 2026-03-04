@@ -33,4 +33,12 @@ public class DiaryController {
 
         return Map.of("updated", true);
     }
+
+    @DeleteMapping("/{diaryId}")
+    public Map<String, Boolean> deleteDiary(@PathVariable Long diaryId) {
+
+        diaryService.deleteDiary(diaryId);
+
+        return Map.of("deleted", true);
+    }
 }
