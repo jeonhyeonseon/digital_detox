@@ -30,4 +30,12 @@ public class DiaryService {
 
         diary.updateDiary(updateRequestDto.getMood(), updateRequestDto.getScreenTime(), updateRequestDto.getContent());
     }
+
+    public void deleteDiary(Long diaryId) {
+
+        Diary diary = diaryRepository.findById(diaryId)
+                        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 다이어리입니다."));
+
+        diaryRepository.delete(diary);
+    }
 }
