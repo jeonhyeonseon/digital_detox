@@ -1,13 +1,11 @@
 package com.digitaldetox.digital_detox.diary.controller;
 
 import com.digitaldetox.digital_detox.diary.dto.DiaryRegisterRequestDto;
+import com.digitaldetox.digital_detox.diary.dto.DiaryUpdateRequestDto;
 import com.digitaldetox.digital_detox.diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -25,5 +23,14 @@ public class DiaryController {
         Long diaryId = diaryService.registerDiary(diaryRegisterRequestDto);
 
         return Map.of("diaryId", diaryId);
+    }
+
+    @PutMapping("/{diaryId}")
+    public Map<String, Boolean> editDiary(@PathVariable Long diaryId,
+                                          @RequestBody DiaryUpdateRequestDto updateRequestDto) {
+
+        diaryService.updateDiary(diaryId, updateRequestDto);
+
+        return Map.of("updated", true);
     }
 }

@@ -29,4 +29,9 @@ public class Diary {
     private int screenTime;
     private String content;
 
+    public void updateDiary(Mood mood, int screenTime, String content) {
+        this.mood = mood;
+        this.screenTime = screenTime;
+        this.content = content;
+    }
 }
