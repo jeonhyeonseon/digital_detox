@@ -2,11 +2,13 @@ package com.digitaldetox.digital_detox.diary.controller;
 
 import com.digitaldetox.digital_detox.diary.dto.DiaryRegisterRequestDto;
 import com.digitaldetox.digital_detox.diary.dto.DiaryUpdateRequestDto;
+import com.digitaldetox.digital_detox.diary.dto.DiaryMonthResponseDto;
 import com.digitaldetox.digital_detox.diary.service.DiaryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -16,6 +18,15 @@ import java.util.Map;
 public class DiaryController {
 
     private final DiaryService diaryService;
+
+    @GetMapping("/Month")
+    public List<DiaryMonthResponseDto> monthResponseDtoList(@RequestParam Long memberId,
+                                                            @RequestParam int year,
+                                                            @RequestParam int month) {
+
+        return diaryService.getMonthlyDiary(memberId, year, month);
+    }
+
 
     @PostMapping
     public Map<String, Long> registerDiary(@RequestBody DiaryRegisterRequestDto diaryRegisterRequestDto) {
