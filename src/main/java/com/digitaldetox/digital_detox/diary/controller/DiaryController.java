@@ -19,7 +19,7 @@ public class DiaryController {
 
     private final DiaryService diaryService;
 
-    @GetMapping("/Month")
+    @GetMapping("/month")
     public List<DiaryMonthResponseDto> monthResponseDtoList(@RequestParam Long memberId,
                                                             @RequestParam int year,
                                                             @RequestParam int month) {
