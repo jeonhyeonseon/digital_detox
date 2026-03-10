@@ -5,12 +5,10 @@ import com.digitaldetox.digital_detox.challenge.dto.ChallengeListResponseDto;
 import com.digitaldetox.digital_detox.challenge.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -30,5 +28,14 @@ public class ChallengeController {
     public ChallengeDetailResponseDto detailChallenge(@PathVariable Long challengeId) {
 
         return challengeService.getChallengeDetail(challengeId);
+    }
+
+    @PostMapping("/{challengeId}/join")
+    public Map<String, Boolean> joinChallenge(@PathVariable Long challengeId,
+                                              @RequestParam Long memberId) {
+
+        challengeService.joinChallenge(challengeId, memberId);
+
+        return Map.of("joined",true);
     }
 }
