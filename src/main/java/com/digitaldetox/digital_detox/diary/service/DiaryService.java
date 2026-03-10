@@ -1,5 +1,6 @@
 package com.digitaldetox.digital_detox.diary.service;
 
+import com.digitaldetox.digital_detox.diary.dto.DiaryDateResponseDto;
 import com.digitaldetox.digital_detox.diary.dto.DiaryRegisterRequestDto;
 import com.digitaldetox.digital_detox.diary.domain.Diary;
 import com.digitaldetox.digital_detox.diary.dto.DiaryUpdateRequestDto;
@@ -34,6 +35,20 @@ public class DiaryService {
                                                                             diary.getMood()
                                                                             )).toList();
 
+    }
+
+    public DiaryDateResponseDto getDiaryByDate(Long memberId, LocalDate diaryDate) {
+
+        Diary diary = diaryRepository.findByMemberIdAndDiaryDate(memberId, diaryDate);
+
+        return new DiaryDateResponseDto(
+                                        diary.getDiaryId(),
+                                        diary.getDiaryDate(),
+                                        diary.getMood(),
+                                        diary.getScreenTime(),
+                                        diary.getScreenTimeDifference(),
+                                        diary.getContent()
+                                        );
     }
 
     public Long registerDiary(DiaryRegisterRequestDto diaryRegisterRequestDto) {

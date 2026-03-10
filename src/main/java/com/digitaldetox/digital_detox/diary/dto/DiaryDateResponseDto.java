@@ -5,11 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DiaryUpdateRequestDto {
+public class DiaryDateResponseDto {
 
+    private Long diaryId;
+    private LocalDate diaryDate;
     private Mood mood;
     private int screenTime;
     private int screenTimeDifference;
