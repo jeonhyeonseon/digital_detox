@@ -18,7 +18,7 @@ public class ChallengeMission {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challenge_id")
-    private Challenge challengse;
+    private Challenge challenge;
 
     private int dayNumber;
 
