@@ -17,6 +17,7 @@ public class DiaryRegisterRequestDto {
     private LocalDate diaryDate;
     private Mood mood;
     private int screenTime;
+    private int screenTimeDifference;
     private String content;
 
     public Diary toDiary() {
@@ -25,6 +26,7 @@ public class DiaryRegisterRequestDto {
                 .diaryDate(this.diaryDate)
                 .mood(this.mood)
                 .screenTime(this.screenTime)
+                .screenTimeDifference(this.screenTimeDifference)
                 .content(this.content)
                 .build();
     }
