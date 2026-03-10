@@ -1,16 +1,13 @@
 package com.digitaldetox.digital_detox.diary.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "tbl_diary")
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

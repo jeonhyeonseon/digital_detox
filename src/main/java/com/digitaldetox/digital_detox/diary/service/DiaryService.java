@@ -39,7 +39,8 @@ public class DiaryService {
 
     public DiaryDateResponseDto getDiaryByDate(Long memberId, LocalDate diaryDate) {
 
-        Diary diary = diaryRepository.findByMemberIdAndDiaryDate(memberId, diaryDate);
+        Diary diary = diaryRepository.findByMemberIdAndDiaryDate(memberId, diaryDate)
+                                    .orElseThrow(() -> new IllegalArgumentException("해당 날짜의 다이어리가 존재하지 않습니다."));
 
         return new DiaryDateResponseDto(
                                         diary.getDiaryId(),

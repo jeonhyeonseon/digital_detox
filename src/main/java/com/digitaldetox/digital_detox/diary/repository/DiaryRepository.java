@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
 
     List<Diary> findAllByMemberIdAndDiaryDateBetween(Long memberId, LocalDate startDate, LocalDate endDate);
 
-    Diary findByMemberIdAndDiaryDate(Long memberId, LocalDate diaryDate);
+    Optional<Diary> findByMemberIdAndDiaryDate(Long memberId, LocalDate diaryDate);
 }
