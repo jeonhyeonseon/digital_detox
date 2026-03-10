@@ -1,5 +1,6 @@
 package com.digitaldetox.digital_detox.diary.controller;
 
+import com.digitaldetox.digital_detox.diary.dto.DiaryDateResponseDto;
 import com.digitaldetox.digital_detox.diary.dto.DiaryRegisterRequestDto;
 import com.digitaldetox.digital_detox.diary.dto.DiaryUpdateRequestDto;
 import com.digitaldetox.digital_detox.diary.dto.DiaryMonthResponseDto;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +29,12 @@ public class DiaryController {
         return diaryService.getMonthlyDiary(memberId, year, month);
     }
 
+    @GetMapping("/date")
+    public DiaryDateResponseDto dateResponseDto(@RequestParam Long memberId,
+                                                @RequestParam LocalDate diaryDate) {
+
+        return diaryService.getDiaryByDate(memberId, diaryDate);
+    }
 
     @PostMapping
     public Map<String, Long> registerDiary(@RequestBody DiaryRegisterRequestDto diaryRegisterRequestDto) {
