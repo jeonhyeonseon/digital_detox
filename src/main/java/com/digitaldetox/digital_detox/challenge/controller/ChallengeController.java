@@ -1,10 +1,12 @@
 package com.digitaldetox.digital_detox.challenge.controller;
 
+import com.digitaldetox.digital_detox.challenge.dto.ChallengeDetailResponseDto;
 import com.digitaldetox.digital_detox.challenge.dto.ChallengeListResponseDto;
 import com.digitaldetox.digital_detox.challenge.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +24,11 @@ public class ChallengeController {
     public List<ChallengeListResponseDto> getChallenge() {
 
         return challengeService.getChallengeList();
+    }
+
+    @GetMapping("/{challengeId}")
+    public ChallengeDetailResponseDto detailChallenge(@PathVariable Long challengeId) {
+
+        return challengeService.getChallengeDetail(challengeId);
     }
 }
