@@ -2,15 +2,19 @@ package com.digitaldetox.digital_detox.challenge.service;
 
 import com.digitaldetox.digital_detox.challenge.domain.Challenge;
 import com.digitaldetox.digital_detox.challenge.domain.ChallengeMission;
+import com.digitaldetox.digital_detox.challenge.domain.MemberChallenge;
+import com.digitaldetox.digital_detox.challenge.domain.MemberChallengeStatus;
 import com.digitaldetox.digital_detox.challenge.dto.ChallengeDetailResponseDto;
 import com.digitaldetox.digital_detox.challenge.dto.ChallengeListResponseDto;
 import com.digitaldetox.digital_detox.challenge.dto.ChallengeMissionResponseDto;
 import com.digitaldetox.digital_detox.challenge.repository.ChallengeMissionRepository;
 import com.digitaldetox.digital_detox.challenge.repository.ChallengeRepository;
+import com.digitaldetox.digital_detox.challenge.repository.MemberChallengeRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -20,6 +24,7 @@ public class ChallengeService {
 
     private final ChallengeRepository challengeRepository;
     private final ChallengeMissionRepository challengeMissionRepository;
+    private final MemberChallengeRepository memberChallengeRepository;
 
     public List<ChallengeListResponseDto> getChallengeList() {
 
@@ -59,5 +64,26 @@ public class ChallengeService {
                 challenge.getBadge(),
                 challengeMissionResponseDto
         );
+    }
+
+    public void joinChallenge(Long challengeId, Long memberId) {
+
+        Challenge challenge = challengeRepository.findById(challengeId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 챌린지입니다."));
+
+        boolean alreadyChallengeJoined = memberChallengeRepository.existsByMemberIdAndChallengeAndStatus(challengeId, memberId, MemberChallengeStatus.IN_PROGRESS);
+
+        if (alreadyChallengeJoined) {
+            throw new IllegalArgumentException("이미 참여 중인 챌린지입니다. 참여 완료 후 다시 도전하세요!");
+        }
+
+        MemberChallenge memberChallenge = new MemberChallenge(
+                null,
+                memberId,
+                challenge,
+                LocalDate.now(),
+                MemberChallengeStatus.IN_PROGRESS
+        );
+
+        memberChallengeRepository.save(memberChallenge);
     }
 }
