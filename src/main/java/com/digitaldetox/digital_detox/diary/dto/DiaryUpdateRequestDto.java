@@ -12,7 +12,6 @@ public class DiaryUpdateRequestDto {
 
     private Mood mood;
     private int screenTime;
-    private int screenTimeDifference;
     private String content;
 
 }

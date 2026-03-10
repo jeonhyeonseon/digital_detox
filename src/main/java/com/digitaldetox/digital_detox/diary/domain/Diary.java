@@ -27,9 +27,6 @@ public class Diary {
     @Column(nullable = false)
     private int screenTime;
 
-    // 스크린타임 어제와 비교
-    @Column(nullable = false)
-    private int screenTimeDifference;
     private String content;
 
     public void updateDiary(Mood mood, int screenTime, String content) {

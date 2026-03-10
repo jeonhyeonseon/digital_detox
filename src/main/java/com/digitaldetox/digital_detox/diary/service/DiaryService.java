@@ -47,7 +47,6 @@ public class DiaryService {
                                         diary.getDiaryDate(),
                                         diary.getMood(),
                                         diary.getScreenTime(),
-                                        diary.getScreenTimeDifference(),
                                         diary.getContent()
                                         );
     }
