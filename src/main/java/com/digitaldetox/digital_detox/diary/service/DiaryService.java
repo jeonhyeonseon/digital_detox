@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -42,11 +43,18 @@ public class DiaryService {
         Diary diary = diaryRepository.findByMemberIdAndDiaryDate(memberId, diaryDate)
                                     .orElseThrow(() -> new IllegalArgumentException("해당 날짜의 다이어리가 존재하지 않습니다."));
 
+        LocalDate yesterday = diaryDate.minusDays(1);
+
+        Integer screenTimeDifference = diaryRepository.findByMemberIdAndDiaryDate(memberId, diaryDate)
+                                                        .map(yesterdayDiary -> diary.getScreenTime() - yesterdayDiary.getScreenTime())
+                                                        .orElse(null);
+
         return new DiaryDateResponseDto(
                                         diary.getDiaryId(),
                                         diary.getDiaryDate(),
                                         diary.getMood(),
                                         diary.getScreenTime(),
+                                        screenTimeDifference,
                                         diary.getContent()
                                         );
     }

@@ -16,6 +16,7 @@ public class DiaryDateResponseDto {
     private LocalDate diaryDate;
     private Mood mood;
     private int screenTime;
+    private Integer screenTimeDifference;
     private String content;
 
 }
