@@ -7,6 +7,7 @@ import com.digitaldetox.digital_detox.challenge.domain.MemberChallengeStatus;
 import com.digitaldetox.digital_detox.challenge.dto.ChallengeDetailResponseDto;
 import com.digitaldetox.digital_detox.challenge.dto.ChallengeListResponseDto;
 import com.digitaldetox.digital_detox.challenge.dto.ChallengeMissionResponseDto;
+import com.digitaldetox.digital_detox.challenge.dto.OngoingChallengeResponseDto;
 import com.digitaldetox.digital_detox.challenge.repository.ChallengeMissionRepository;
 import com.digitaldetox.digital_detox.challenge.repository.ChallengeRepository;
 import com.digitaldetox.digital_detox.challenge.repository.MemberChallengeRepository;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -81,9 +83,36 @@ public class ChallengeService {
                 memberId,
                 challenge,
                 LocalDate.now(),
-                MemberChallengeStatus.IN_PROGRESS
+                MemberChallengeStatus.IN_PROGRESS,
+                0
         );
 
         memberChallengeRepository.save(memberChallenge);
+    }
+
+    public List<OngoingChallengeResponseDto> getOngoingChallenge(Long memberId) {
+
+        List<MemberChallenge> memberChallenges = memberChallengeRepository.findAllByMemberIdAndCompletedFalse(memberId);
+
+        LocalDate today = LocalDate.now();
+
+        return memberChallenges.stream().map(memberChallenge ->  {
+            Challenge challenge = memberChallenge.getChallenge();
+
+            int totalDays = challenge.getDurationDays();
+            int currentDay = (int) ChronoUnit.DAYS.between(memberChallenge.getStartDate(), today) + 1;
+
+            currentDay = Math.max(1, currentDay);
+            currentDay = Math.min(currentDay, totalDays);
+
+            return new OngoingChallengeResponseDto(
+                    memberChallenge.getMemberChallengeId(),
+                    challenge.getChallengeId(),
+                    challenge.getTitle(),
+                    currentDay,
+                    totalDays,
+                    memberChallenge.getStreak()
+            );
+        }).toList();
     }
 }

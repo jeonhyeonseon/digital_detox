@@ -2,6 +2,7 @@ package com.digitaldetox.digital_detox.challenge.controller;
 
 import com.digitaldetox.digital_detox.challenge.dto.ChallengeDetailResponseDto;
 import com.digitaldetox.digital_detox.challenge.dto.ChallengeListResponseDto;
+import com.digitaldetox.digital_detox.challenge.dto.OngoingChallengeResponseDto;
 import com.digitaldetox.digital_detox.challenge.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,5 +38,11 @@ public class ChallengeController {
         challengeService.joinChallenge(challengeId, memberId);
 
         return Map.of("joined",true);
+    }
+
+    @GetMapping("/ongoing")
+    public List<OngoingChallengeResponseDto> ongoingChallengeResponseDto(@RequestParam Long memberId) {
+
+        return challengeService.getOngoingChallenge(memberId);
     }
 }
