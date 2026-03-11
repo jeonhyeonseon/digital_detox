@@ -29,4 +29,6 @@ public class MemberChallenge {
     @Enumerated(EnumType.STRING)
     private MemberChallengeStatus memberChallengeStatus;
 
+    private int streak;
+
 }
