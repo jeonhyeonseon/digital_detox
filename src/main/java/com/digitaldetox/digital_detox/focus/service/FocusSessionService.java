@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -94,5 +95,19 @@ public class FocusSessionService {
                 focusSession.getStartedAt(),
                 focusSession.getEndedAt()
         );
+    }
+
+    public FocusSessionTodayRecordResponseDto todaySession(Long memberId) {
+
+        LocalDateTime startOfDay = LocalDateTime.now().toLocalDate().atStartOfDay();
+        LocalDateTime endOfDay = startOfDay.plusDays(1);
+
+        List<FocusSession> completedSession = focusSessionRepository.findByMemberIdAndSessionStatusAndStartedAtBetween(memberId, SessionStatus.COMPLETED, startOfDay, endOfDay);
+
+        long completedCount = completedSession.size();
+
+        int totalFocusTime = completedSession.stream().mapToInt(FocusSession::getActualTime).sum();
+
+        return new FocusSessionTodayRecordResponseDto(completedCount, totalFocusTime);
     }
 }
