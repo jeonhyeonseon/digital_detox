@@ -1,5 +1,7 @@
 package com.digitaldetox.digital_detox.focus.controller;
 
+import com.digitaldetox.digital_detox.focus.dto.FocusSessionEndRequestDto;
+import com.digitaldetox.digital_detox.focus.dto.FocusSessionEndResponseDto;
 import com.digitaldetox.digital_detox.focus.dto.FocusSessionStartRequestDto;
 import com.digitaldetox.digital_detox.focus.dto.FocusSessionStartResponseDto;
 import com.digitaldetox.digital_detox.focus.service.FocusSessionService;
@@ -20,5 +22,12 @@ public class FocusSessionController {
                                                      @RequestBody FocusSessionStartRequestDto sessionStartRequestDto) {
 
         return focusSessionService.startSession(memberId, sessionStartRequestDto);
+    }
+
+    @PatchMapping("/{focusSessionId}/complete")
+    public FocusSessionEndResponseDto sessionEnd(@PathVariable Long focusSessionId,
+                                                 @RequestBody FocusSessionEndRequestDto sessionEndRequestDto) {
+
+        return focusSessionService.endSession(focusSessionId, sessionEndRequestDto);
     }
 }
