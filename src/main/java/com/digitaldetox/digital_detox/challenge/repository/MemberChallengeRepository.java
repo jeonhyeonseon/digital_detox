@@ -1,5 +1,6 @@
 package com.digitaldetox.digital_detox.challenge.repository;
 
+import com.digitaldetox.digital_detox.challenge.domain.Challenge;
 import com.digitaldetox.digital_detox.challenge.domain.MemberChallenge;
 import com.digitaldetox.digital_detox.challenge.domain.MemberChallengeStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,7 @@ import java.util.List;
 @Repository
 public interface MemberChallengeRepository extends JpaRepository<MemberChallenge, Long> {
 
-    boolean existsByMemberIdAndChallengeAndStatus(Long challengeId, Long memberId, MemberChallengeStatus memberChallengeStatus);
+    boolean existsByMemberIdAndChallengeAndMemberChallengeStatus(Long memberId, Challenge challenge, MemberChallengeStatus memberChallengeStatus);
 
-    List<MemberChallenge> findAllByMemberIdAndCompletedFalse(Long memberId);
+    List<MemberChallenge> findAllByMemberIdAndMemberChallengeStatus(Long memberId, MemberChallengeStatus memberChallengeStatus);
 }

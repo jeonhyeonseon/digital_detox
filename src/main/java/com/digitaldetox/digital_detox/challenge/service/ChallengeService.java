@@ -72,7 +72,7 @@ public class ChallengeService {
 
         Challenge challenge = challengeRepository.findById(challengeId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 챌린지입니다."));
 
-        boolean alreadyChallengeJoined = memberChallengeRepository.existsByMemberIdAndChallengeAndStatus(challengeId, memberId, MemberChallengeStatus.IN_PROGRESS);
+        boolean alreadyChallengeJoined = memberChallengeRepository.existsByMemberIdAndChallengeAndMemberChallengeStatus(memberId, challenge, MemberChallengeStatus.IN_PROGRESS);
 
         if (alreadyChallengeJoined) {
             throw new IllegalArgumentException("이미 참여 중인 챌린지입니다. 참여 완료 후 다시 도전하세요!");
@@ -92,7 +92,7 @@ public class ChallengeService {
 
     public List<OngoingChallengeResponseDto> getOngoingChallenge(Long memberId) {
 
-        List<MemberChallenge> memberChallenges = memberChallengeRepository.findAllByMemberIdAndCompletedFalse(memberId);
+        List<MemberChallenge> memberChallenges = memberChallengeRepository.findAllByMemberIdAndMemberChallengeStatus(memberId, MemberChallengeStatus.IN_PROGRESS);
 
         LocalDate today = LocalDate.now();
 
