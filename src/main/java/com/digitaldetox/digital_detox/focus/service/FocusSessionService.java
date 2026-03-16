@@ -2,10 +2,7 @@ package com.digitaldetox.digital_detox.focus.service;
 
 import com.digitaldetox.digital_detox.focus.domain.FocusSession;
 import com.digitaldetox.digital_detox.focus.domain.SessionStatus;
-import com.digitaldetox.digital_detox.focus.dto.FocusSessionEndRequestDto;
-import com.digitaldetox.digital_detox.focus.dto.FocusSessionEndResponseDto;
-import com.digitaldetox.digital_detox.focus.dto.FocusSessionStartRequestDto;
-import com.digitaldetox.digital_detox.focus.dto.FocusSessionStartResponseDto;
+import com.digitaldetox.digital_detox.focus.dto.*;
 import com.digitaldetox.digital_detox.focus.repository.FocusSessionRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +59,34 @@ public class FocusSessionService {
         focusSession.complete(sessionEndRequestDto.getActualTime());
 
         return new FocusSessionEndResponseDto(
+                focusSession.getFocusSessionId(),
+                focusSession.getTimeSet(),
+                focusSession.getActualTime(),
+                focusSession.getSessionStatus(),
+                focusSession.getStartedAt(),
+                focusSession.getEndedAt()
+        );
+    }
+
+    public FocusSessionCancelResponseDto cancelSession(Long focusSessionId, FocusSessionEndRequestDto sessionEndRequestDto) {
+
+        FocusSession focusSession = focusSessionRepository.findById(focusSessionId).orElseThrow(() -> new IllegalArgumentException("해당 포커스 세션이 존재하지 않습니다."));
+
+        if (focusSession.getSessionStatus() != SessionStatus.IN_PROGRESS) {
+            throw new IllegalArgumentException("진행 중인 세션만 취소할 수 있습니다.");
+        }
+
+        if (sessionEndRequestDto.getActualTime() == null || sessionEndRequestDto.getActualTime() < 0) {
+            throw new IllegalArgumentException("실제 진행 시간은 0분 이상이어야 합니다.");
+        }
+
+        if (sessionEndRequestDto.getActualTime() > focusSession.getTimeSet()) {
+            throw new IllegalArgumentException("실제 진행 시간은 설정된 시간을 초과할 수 없습니다.");
+        }
+
+        focusSession.cancel(sessionEndRequestDto.getActualTime());
+
+        return new FocusSessionCancelResponseDto(
                 focusSession.getFocusSessionId(),
                 focusSession.getTimeSet(),
                 focusSession.getActualTime(),

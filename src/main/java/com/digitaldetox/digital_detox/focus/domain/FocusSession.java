@@ -42,4 +42,10 @@ public class FocusSession {
         this.sessionStatus = SessionStatus.COMPLETED;
         this.endedAt = LocalDateTime.now();
     }
+
+    public void cancel(Integer actualTime) {
+        this.actualTime = actualTime;
+        this.sessionStatus = SessionStatus.CANCELLED;
+        this.endedAt = LocalDateTime.now();
+    }
 }
