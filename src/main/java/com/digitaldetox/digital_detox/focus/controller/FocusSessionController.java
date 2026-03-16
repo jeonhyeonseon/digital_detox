@@ -33,5 +33,11 @@ public class FocusSessionController {
                                                        @RequestBody FocusSessionEndRequestDto sessionEndRequestDto) {
 
         return focusSessionService.cancelSession(focusSessionId, sessionEndRequestDto);
-    
+    }
+
+    @GetMapping("/today")
+    public FocusSessionTodayRecordResponseDto todaySession(@RequestParam Long memberId) {
+
+        return focusSessionService.todaySession(memberId);
+    }
 }
