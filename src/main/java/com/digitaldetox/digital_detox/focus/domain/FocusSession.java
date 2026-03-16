@@ -1,6 +1,5 @@
 package com.digitaldetox.digital_detox.focus.domain;
 
-import com.digitaldetox.digital_detox.focus.dto.FocusSessionStartRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,5 +35,11 @@ public class FocusSession {
         this.actualTime = 0;
         this.sessionStatus = SessionStatus.IN_PROGRESS;
         this.startedAt = startedAt;
+    }
+
+    public void complete(Integer actualTime) {
+        this.actualTime = actualTime;
+        this.sessionStatus = SessionStatus.COMPLETED;
+        this.endedAt = LocalDateTime.now();
     }
 }
