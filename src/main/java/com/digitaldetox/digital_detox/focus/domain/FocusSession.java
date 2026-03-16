@@ -30,4 +30,11 @@ public class FocusSession {
 
     private LocalDateTime endedAt;
 
+    public FocusSession(Long memberId, Integer timeSet, LocalDateTime startedAt) {
+        this.memberId = memberId;
+        this.timeSet = timeSet;
+        this.actualTime = 0;
+        this.sessionStatus = SessionStatus.IN_PROGRESS;
+        this.startedAt = startedAt;
+    }
 }
