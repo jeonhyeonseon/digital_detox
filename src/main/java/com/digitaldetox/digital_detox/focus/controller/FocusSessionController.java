@@ -1,9 +1,6 @@
 package com.digitaldetox.digital_detox.focus.controller;
 
-import com.digitaldetox.digital_detox.focus.dto.FocusSessionEndRequestDto;
-import com.digitaldetox.digital_detox.focus.dto.FocusSessionEndResponseDto;
-import com.digitaldetox.digital_detox.focus.dto.FocusSessionStartRequestDto;
-import com.digitaldetox.digital_detox.focus.dto.FocusSessionStartResponseDto;
+import com.digitaldetox.digital_detox.focus.dto.*;
 import com.digitaldetox.digital_detox.focus.service.FocusSessionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,5 +26,12 @@ public class FocusSessionController {
                                                  @RequestBody FocusSessionEndRequestDto sessionEndRequestDto) {
 
         return focusSessionService.endSession(focusSessionId, sessionEndRequestDto);
+    }
+
+    @PatchMapping("/{focusSessionId}/cancle")
+    public FocusSessionCancelResponseDto cancelSession(@PathVariable Long focusSessionId,
+                                                       @RequestBody FocusSessionEndRequestDto sessionEndRequestDto) {
+
+        return focusSessionService.cancelSession(focusSessionId, sessionEndRequestDto);
     }
 }
