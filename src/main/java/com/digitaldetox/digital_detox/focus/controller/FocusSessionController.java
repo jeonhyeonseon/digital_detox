@@ -28,10 +28,10 @@ public class FocusSessionController {
         return focusSessionService.endSession(focusSessionId, sessionEndRequestDto);
     }
 
-    @PatchMapping("/{focusSessionId}/cancle")
+    @PatchMapping("/{focusSessionId}/cancel")
     public FocusSessionCancelResponseDto cancelSession(@PathVariable Long focusSessionId,
                                                        @RequestBody FocusSessionEndRequestDto sessionEndRequestDto) {
 
         return focusSessionService.cancelSession(focusSessionId, sessionEndRequestDto);
-    }
+    
 }
