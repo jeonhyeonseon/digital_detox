@@ -2,6 +2,7 @@ package com.digitaldetox.digital_detox.community.post.dto;
 
 import com.digitaldetox.digital_detox.community.post.domain.Post;
 import com.digitaldetox.digital_detox.community.post.domain.PostCategory;
+import com.digitaldetox.digital_detox.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ public class PostRegisterRequestDto {
 
     public Post toPost() {
         return Post.builder()
-                .memberId(this.memberId)
+                .member(this.toPost().getMember())
                 .postCategory(this.postCategory)
                 .title(this.title)
                 .content(this.content)

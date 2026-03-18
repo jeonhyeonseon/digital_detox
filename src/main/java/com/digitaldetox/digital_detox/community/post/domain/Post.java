@@ -1,10 +1,8 @@
 package com.digitaldetox.digital_detox.community.post.domain;
 
+import com.digitaldetox.digital_detox.member.entity.Member;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -13,7 +11,7 @@ import java.time.LocalDate;
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "tbl_post")
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -23,7 +21,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
 
-    private Long memberId; // 작성자
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
     @Enumerated(EnumType.STRING)
     private PostCategory postCategory;
