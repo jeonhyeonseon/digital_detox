@@ -20,7 +20,7 @@ public class PostDetailResponseDto {
     public static PostDetailResponseDto fromPost(Post post) {
         return new PostDetailResponseDto(
                 post.getPostId(),
-                post.getMemberId(),
+                post.getMember().getMemberId(),
                 post.getPostCategory(),
                 post.getTitle(),
                 post.getContent()
