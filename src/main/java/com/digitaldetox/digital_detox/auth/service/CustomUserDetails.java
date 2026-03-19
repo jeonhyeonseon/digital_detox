@@ -16,6 +16,10 @@ public class CustomUserDetails implements UserDetails {
         this.member = member;
     }
 
+    public Long getMemberId() {
+        return member.getMemberId();
+    }
+
     @Override
     public String getUsername() {
         return member.getEmail(); // 로그인 기준 (email)

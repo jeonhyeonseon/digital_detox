@@ -1,11 +1,13 @@
 package com.digitaldetox.digital_detox.community.comment.controller;
 
+import com.digitaldetox.digital_detox.auth.service.CustomUserDetails;
 import com.digitaldetox.digital_detox.community.comment.dto.CommentCreatedRequestDto;
 import com.digitaldetox.digital_detox.community.comment.dto.CommentListResponseDto;
 import com.digitaldetox.digital_detox.community.comment.dto.CommentUpdateRequestDto;
 import com.digitaldetox.digital_detox.community.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,9 +28,10 @@ public class CommentController {
 
     @PostMapping
     public Map<String, Long> createComment(@PathVariable Long postId,
-                                           @RequestBody CommentCreatedRequestDto createdRequestDto) {
+                                           @RequestBody CommentCreatedRequestDto createdRequestDto,
+                                           @AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
-        Long memberId = 1L; // TODO: 사용자
+        Long memberId = customUserDetails.getMemberId();
 
         Long commentId = commentService.createComment(postId, memberId, createdRequestDto);
 
@@ -36,10 +39,12 @@ public class CommentController {
     }
 
     @PutMapping("/{commentId}")
-    public Map<String, Boolean> updateComment(@PathVariable Long commentId,
+    public Map<String, Boolean> updateComment(@PathVariable Long postId,
+                                              @PathVariable Long commentId,
+                                              @AuthenticationPrincipal CustomUserDetails customUserDetails,
                                               @RequestBody CommentUpdateRequestDto updateRequestDto) {
 
-        commentService.updatedComment(commentId, updateRequestDto);
+        commentService.updatedComment(postId, commentId, customUserDetails.getMemberId(), updateRequestDto);
 
         return Map.of("updated", true);
     }

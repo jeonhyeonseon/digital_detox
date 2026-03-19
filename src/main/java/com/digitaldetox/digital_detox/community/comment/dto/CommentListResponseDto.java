@@ -16,15 +16,16 @@ public class CommentListResponseDto {
 
     private Long postId;
     private Long memberId;
-
+    private String nickname;
     private String content;
 
     private LocalDateTime createdAt;
 
     public static CommentListResponseDto fromComment(Comment comment) {
         return CommentListResponseDto.builder()
-                .postId(comment.getPostId())
-                .memberId(comment.getMemberId())
+                .postId(comment.getPost().getPostId())
+                .memberId(comment.getMember().getMemberId())
+                .nickname(comment.getMember().getNickname())
                 .content(comment.getContent())
                 .createdAt(LocalDateTime.now())
                 .build();
