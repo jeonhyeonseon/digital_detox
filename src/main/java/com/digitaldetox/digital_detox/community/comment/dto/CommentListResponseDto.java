@@ -16,7 +16,7 @@ public class CommentListResponseDto {
 
     private Long postId;
     private Long memberId;
-
+    private String nickname;
     private String content;
 
     private LocalDateTime createdAt;
@@ -24,7 +24,8 @@ public class CommentListResponseDto {
     public static CommentListResponseDto fromComment(Comment comment) {
         return CommentListResponseDto.builder()
                 .postId(comment.getPost().getPostId())
-                .memberId(builder().memberId)
+                .memberId(comment.getMember().getMemberId())
+                .nickname(comment.getMember().getNickname())
                 .content(comment.getContent())
                 .createdAt(LocalDateTime.now())
                 .build();
