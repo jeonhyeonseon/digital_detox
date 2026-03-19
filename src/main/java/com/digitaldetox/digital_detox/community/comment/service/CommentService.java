@@ -5,6 +5,7 @@ import com.digitaldetox.digital_detox.community.comment.dto.CommentListResponseD
 import com.digitaldetox.digital_detox.community.comment.dto.CommentUpdateRequestDto;
 import com.digitaldetox.digital_detox.community.comment.entity.Comment;
 import com.digitaldetox.digital_detox.community.comment.repository.CommentRepository;
+import com.digitaldetox.digital_detox.member.entity.Member;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,9 @@ public class CommentService {
 
     }
 
-    public Long createComment(Long postId, Long memberId, CommentCreatedRequestDto createdRequestDto) {
+    public Long createComment(Long postId, Member member, CommentCreatedRequestDto createdRequestDto) {
 
-        Comment comment = new Comment(postId, memberId, createdRequestDto);
+        Comment comment = new Comment(postId, member, createdRequestDto);
 
         Comment saved = commentRepository.save(comment);
 
