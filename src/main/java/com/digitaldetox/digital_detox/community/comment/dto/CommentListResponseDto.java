@@ -23,7 +23,7 @@ public class CommentListResponseDto {
 
     public static CommentListResponseDto fromComment(Comment comment) {
         return CommentListResponseDto.builder()
-                .postId(comment.getPostId())
+                .postId(comment.getPost().getPostId())
                 .memberId(builder().memberId)
                 .content(comment.getContent())
                 .createdAt(LocalDateTime.now())
