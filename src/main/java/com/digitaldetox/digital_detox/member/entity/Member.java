@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "tbl_member")
 @Getter
@@ -18,7 +20,7 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nickname;
 
     @Column(nullable = false)
@@ -26,4 +28,6 @@ public class Member {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    private LocalDateTime joinedAt;
 }
