@@ -4,6 +4,8 @@ import com.digitaldetox.digital_detox.focus.domain.FocusSession;
 import com.digitaldetox.digital_detox.focus.domain.SessionStatus;
 import com.digitaldetox.digital_detox.focus.dto.*;
 import com.digitaldetox.digital_detox.focus.repository.FocusSessionRepository;
+import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import java.util.List;
 public class FocusSessionService {
 
     private final FocusSessionRepository focusSessionRepository;
+    private final MemberRepository memberRepository;
 
     public FocusSessionStartResponseDto startSession(Long memberId, FocusSessionStartRequestDto sessionStartRequestDto) {
 
@@ -24,8 +27,10 @@ public class FocusSessionService {
             throw new IllegalArgumentException("설정 시간은 1분 이상이어야 합니다.");
         }
 
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원 정보입니다."));
+
         FocusSession focusSession = new FocusSession(
-                memberId,
+                member,
                 sessionStartRequestDto.getTimeSet(),
                 LocalDateTime.now()
         );

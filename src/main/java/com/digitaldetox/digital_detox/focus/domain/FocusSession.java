@@ -1,5 +1,6 @@
 package com.digitaldetox.digital_detox.focus.domain;
 
+import com.digitaldetox.digital_detox.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,9 @@ public class FocusSession {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long focusSessionId;
 
-    private Long memberId; // TODO
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     private Integer timeSet; // 시간 설정(분)
 
@@ -29,8 +32,8 @@ public class FocusSession {
 
     private LocalDateTime endedAt;
 
-    public FocusSession(Long memberId, Integer timeSet, LocalDateTime startedAt) {
-        this.memberId = memberId;
+    public FocusSession(Member member, Integer timeSet, LocalDateTime startedAt) {
+        this.member = member;
         this.timeSet = timeSet;
         this.actualTime = 0;
         this.sessionStatus = SessionStatus.IN_PROGRESS;
