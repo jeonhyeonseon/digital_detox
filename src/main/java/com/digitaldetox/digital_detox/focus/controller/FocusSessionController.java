@@ -15,14 +15,14 @@ public class FocusSessionController {
     private final FocusSessionService focusSessionService;
 
     @PostMapping
-    public FocusSessionStartResponseDto sessionStart(@RequestParam Long memberId,
+    public FocusSessionStartResponseDto startSession(@RequestParam Long memberId,
                                                      @RequestBody FocusSessionStartRequestDto sessionStartRequestDto) {
 
         return focusSessionService.startSession(memberId, sessionStartRequestDto);
     }
 
     @PatchMapping("/{focusSessionId}/complete")
-    public FocusSessionEndResponseDto sessionEnd(@PathVariable Long focusSessionId,
+    public FocusSessionEndResponseDto endSession(@PathVariable Long focusSessionId,
                                                  @RequestBody FocusSessionEndRequestDto sessionEndRequestDto) {
 
         return focusSessionService.endSession(focusSessionId, sessionEndRequestDto);
