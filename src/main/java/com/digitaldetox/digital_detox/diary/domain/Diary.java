@@ -1,5 +1,6 @@
 package com.digitaldetox.digital_detox.diary.domain;
 
+import com.digitaldetox.digital_detox.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +18,9 @@ public class Diary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long diaryId;
 
-    private Long memberId; // TODO
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     private LocalDate diaryDate;
 

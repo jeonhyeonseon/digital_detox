@@ -11,7 +11,9 @@ import java.util.Optional;
 @Repository
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
 
-    List<Diary> findAllByMemberIdAndDiaryDateBetween(Long memberId, LocalDate startDate, LocalDate endDate);
+    List<Diary> findAllByMember_MemberIdAndDiaryDateBetween(Long memberId, LocalDate startDate, LocalDate endDate);
 
-    Optional<Diary> findByMemberIdAndDiaryDate(Long memberId, LocalDate diaryDate);
+    Optional<Diary> findByMember_MemberIdAndDiaryDate(Long memberId, LocalDate diaryDate);
+
+    Optional<Diary> findByDiaryIdAndMember_MemberId(Long diaryId, Long memberId);
 }
