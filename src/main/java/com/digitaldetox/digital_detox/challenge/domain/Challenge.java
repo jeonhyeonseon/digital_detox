@@ -21,8 +21,10 @@ public class Challenge {
     private String description;
 
     // 7일, 14일, 30일
+    @Column(nullable = false)
     private int durationDays;
 
+    @Column(nullable = false)
     private int difficulty;
 
     @Enumerated(EnumType.STRING)

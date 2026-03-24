@@ -1,5 +1,6 @@
 package com.digitaldetox.digital_detox.challenge.domain;
 
+import com.digitaldetox.digital_detox.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,9 @@ public class MemberChallenge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberChallengeId;
 
-    private Long memberId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challenge_id")
@@ -26,9 +29,11 @@ public class MemberChallenge {
 
     private LocalDate startDate;
 
+    private int currentDay; // 현재 몇 일차인지
+
     @Enumerated(EnumType.STRING)
     private MemberChallengeStatus memberChallengeStatus;
 
-    private int streak;
+    private int streak; // 연속 수행 일수
 
 }
