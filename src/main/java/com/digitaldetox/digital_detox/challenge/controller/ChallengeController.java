@@ -42,4 +42,16 @@ public class ChallengeController {
 
         return challengeService.getOngoingChallenge(customUserDetails.getMemberId());
     }
+
+    @PostMapping("/{memberChallengeId}/certification")
+    public ChallengeCertificationResponseDto certificationResponseDto(@PathVariable Long memberChallengeId,
+                                                                      @AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                                                      @RequestBody ChallengeCertificationRequestDto certificationRequestDto) {
+
+        return challengeService.challengeCertification(
+                memberChallengeId,
+                customUserDetails.getMemberId(),
+                certificationRequestDto
+        );
+    }
 }

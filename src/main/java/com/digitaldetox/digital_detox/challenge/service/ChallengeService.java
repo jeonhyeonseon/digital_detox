@@ -1,10 +1,8 @@
 package com.digitaldetox.digital_detox.challenge.service;
 
-import com.digitaldetox.digital_detox.challenge.domain.Challenge;
-import com.digitaldetox.digital_detox.challenge.domain.ChallengeMission;
-import com.digitaldetox.digital_detox.challenge.domain.MemberChallenge;
-import com.digitaldetox.digital_detox.challenge.domain.MemberChallengeStatus;
+import com.digitaldetox.digital_detox.challenge.domain.*;
 import com.digitaldetox.digital_detox.challenge.dto.*;
+import com.digitaldetox.digital_detox.challenge.repository.ChallengeCertificationRepository;
 import com.digitaldetox.digital_detox.challenge.repository.ChallengeMissionRepository;
 import com.digitaldetox.digital_detox.challenge.repository.ChallengeRepository;
 import com.digitaldetox.digital_detox.challenge.repository.MemberChallengeRepository;
@@ -15,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -27,6 +26,7 @@ public class ChallengeService {
     private final ChallengeMissionRepository challengeMissionRepository;
     private final MemberChallengeRepository memberChallengeRepository;
     private final MemberRepository memberRepository;
+    private final ChallengeCertificationRepository challengeCertificationRepository;
 
     public List<ChallengeListResponseDto> getChallengeList() {
 
@@ -121,5 +121,12 @@ public class ChallengeService {
                     memberChallenge.getStreak()
             );
         }).toList();
+    }
+
+    public ChallengeCertificationResponseDto challengeCertification(Long memberChallengeId, Long memberId, ChallengeCertificationRequestDto certificationRequestDto) {
+
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원 정보입니다."));
+
+        return null;
     }
 }
