@@ -143,6 +143,11 @@ public class ChallengeService {
             throw new IllegalArgumentException("이미 인증된 챌린지입니다.");
         }
 
+        boolean hasReview = certificationRequestDto.getReviewContent() != null && certificationRequestDto.getReviewContent().trim().isEmpty();
+        if (!hasReview) {
+            throw new IllegalArgumentException("후기를 작성해야 합니다.");
+        }
+
         return null;
     }
 }
