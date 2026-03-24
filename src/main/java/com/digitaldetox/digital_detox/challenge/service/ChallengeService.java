@@ -127,7 +127,7 @@ public class ChallengeService {
 
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원 정보입니다."));
 
-        MemberChallenge memberChallenge = memberChallengeRepository.findByMemberChallengeIdAndMember(memberChallengeId, member);
+        MemberChallenge memberChallenge = memberChallengeRepository.findByMemberChallengeIdAndMember(memberChallengeId, member).orElseThrow(() -> new IllegalArgumentException("참여 중인 챌린지가 존재하지 않습니다."));
         if (memberChallenge.getMemberChallengeStatus() != MemberChallengeStatus.IN_PROGRESS) {
             throw new IllegalArgumentException("진행 중인 챌린지만 인증할 수 있습니다.");
         }
@@ -143,7 +143,7 @@ public class ChallengeService {
             throw new IllegalArgumentException("이미 인증된 챌린지입니다.");
         }
 
-        boolean hasReview = certificationRequestDto.getReviewContent() != null && certificationRequestDto.getReviewContent().trim().isEmpty();
+        boolean hasReview = certificationRequestDto.getReviewContent() != null && !certificationRequestDto.getReviewContent().trim().isEmpty();
         if (!hasReview) {
             throw new IllegalArgumentException("후기를 작성해야 합니다.");
         }
