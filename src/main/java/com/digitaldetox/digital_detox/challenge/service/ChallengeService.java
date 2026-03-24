@@ -132,6 +132,12 @@ public class ChallengeService {
             throw new IllegalArgumentException("진행 중인 챌린지만 인증할 수 있습니다.");
         }
 
+        int currentDay = memberChallenge.getCurrentDay();
+        int certificationDay = certificationRequestDto.getDayNumber();
+        if (currentDay != certificationDay) {
+            throw new IllegalArgumentException("진행 중인 챌린지만 인증할 수 있습니다.");
+        }
+
         return null;
     }
 }
