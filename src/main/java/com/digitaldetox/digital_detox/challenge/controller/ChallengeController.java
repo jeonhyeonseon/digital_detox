@@ -1,11 +1,13 @@
 package com.digitaldetox.digital_detox.challenge.controller;
 
+import com.digitaldetox.digital_detox.auth.service.CustomUserDetails;
 import com.digitaldetox.digital_detox.challenge.dto.ChallengeDetailResponseDto;
 import com.digitaldetox.digital_detox.challenge.dto.ChallengeListResponseDto;
 import com.digitaldetox.digital_detox.challenge.dto.OngoingChallengeResponseDto;
 import com.digitaldetox.digital_detox.challenge.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,16 +35,16 @@ public class ChallengeController {
 
     @PostMapping("/{challengeId}/join")
     public Map<String, Boolean> joinChallenge(@PathVariable Long challengeId,
-                                              @RequestParam Long memberId) {
+                                              @AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
-        challengeService.joinChallenge(challengeId, memberId);
+        challengeService.joinChallenge(challengeId, customUserDetails.getMemberId());
 
         return Map.of("joined",true);
     }
 
     @GetMapping("/ongoing")
-    public List<OngoingChallengeResponseDto> ongoingChallengeResponseDto(@RequestParam Long memberId) {
+    public List<OngoingChallengeResponseDto> ongoingChallengeResponseDto(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
-        return challengeService.getOngoingChallenge(memberId);
+        return challengeService.getOngoingChallenge(customUserDetails.getMemberId());
     }
 }
