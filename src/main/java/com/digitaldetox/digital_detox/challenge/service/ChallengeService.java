@@ -4,13 +4,12 @@ import com.digitaldetox.digital_detox.challenge.domain.Challenge;
 import com.digitaldetox.digital_detox.challenge.domain.ChallengeMission;
 import com.digitaldetox.digital_detox.challenge.domain.MemberChallenge;
 import com.digitaldetox.digital_detox.challenge.domain.MemberChallengeStatus;
-import com.digitaldetox.digital_detox.challenge.dto.ChallengeDetailResponseDto;
-import com.digitaldetox.digital_detox.challenge.dto.ChallengeListResponseDto;
-import com.digitaldetox.digital_detox.challenge.dto.ChallengeMissionResponseDto;
-import com.digitaldetox.digital_detox.challenge.dto.OngoingChallengeResponseDto;
+import com.digitaldetox.digital_detox.challenge.dto.*;
 import com.digitaldetox.digital_detox.challenge.repository.ChallengeMissionRepository;
 import com.digitaldetox.digital_detox.challenge.repository.ChallengeRepository;
 import com.digitaldetox.digital_detox.challenge.repository.MemberChallengeRepository;
+import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +26,7 @@ public class ChallengeService {
     private final ChallengeRepository challengeRepository;
     private final ChallengeMissionRepository challengeMissionRepository;
     private final MemberChallengeRepository memberChallengeRepository;
+    private final MemberRepository memberRepository;
 
     public List<ChallengeListResponseDto> getChallengeList() {
 
@@ -68,11 +68,13 @@ public class ChallengeService {
         );
     }
 
-    public void joinChallenge(Long challengeId, Long memberId) {
+    public ChallengeJoinResponseDto joinChallenge(Long challengeId, Long memberId) {
 
         Challenge challenge = challengeRepository.findById(challengeId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 챌린지입니다."));
 
-        boolean alreadyChallengeJoined = memberChallengeRepository.existsByMemberIdAndChallengeAndMemberChallengeStatus(memberId, challenge, MemberChallengeStatus.IN_PROGRESS);
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원정보입니다."));
+
+        boolean alreadyChallengeJoined = memberChallengeRepository.existsByMemberAndChallengeAndMemberChallengeStatus(member, challenge, MemberChallengeStatus.IN_PROGRESS);
 
         if (alreadyChallengeJoined) {
             throw new IllegalArgumentException("이미 참여 중인 챌린지입니다. 참여 완료 후 다시 도전하세요!");
@@ -80,19 +82,24 @@ public class ChallengeService {
 
         MemberChallenge memberChallenge = new MemberChallenge(
                 null,
-                memberId,
+                member,
                 challenge,
                 LocalDate.now(),
+                1,
                 MemberChallengeStatus.IN_PROGRESS,
                 0
         );
 
-        memberChallengeRepository.save(memberChallenge);
+        MemberChallenge savedMemberChallenge = memberChallengeRepository.save(memberChallenge);
+
+        return new ChallengeJoinResponseDto(savedMemberChallenge.getMemberChallengeId(), true);
     }
 
     public List<OngoingChallengeResponseDto> getOngoingChallenge(Long memberId) {
 
-        List<MemberChallenge> memberChallenges = memberChallengeRepository.findAllByMemberIdAndMemberChallengeStatus(memberId, MemberChallengeStatus.IN_PROGRESS);
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원정보입니다."));
+
+        List<MemberChallenge> memberChallenges = memberChallengeRepository.findAllByMemberAndMemberChallengeStatus(member, MemberChallengeStatus.IN_PROGRESS);
 
         LocalDate today = LocalDate.now();
 
