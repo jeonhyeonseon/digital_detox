@@ -127,6 +127,11 @@ public class ChallengeService {
 
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원 정보입니다."));
 
+        MemberChallenge memberChallenge = memberChallengeRepository.findByMemberChallengeIdAndMember(memberChallengeId, member);
+        if (memberChallenge.getMemberChallengeStatus() != MemberChallengeStatus.IN_PROGRESS) {
+            throw new IllegalArgumentException("진행 중인 챌린지만 인증할 수 있습니다.");
+        }
+
         return null;
     }
 }

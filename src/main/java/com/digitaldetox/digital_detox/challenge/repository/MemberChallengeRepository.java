@@ -15,4 +15,6 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
     boolean existsByMemberAndChallengeAndMemberChallengeStatus(Member member, Challenge challenge, MemberChallengeStatus memberChallengeStatus);
 
     List<MemberChallenge> findAllByMemberAndMemberChallengeStatus(Member member, MemberChallengeStatus memberChallengeStatus);
+
+    MemberChallenge findByMemberChallengeIdAndMember(Long memberChallengeId, Member member);
 }
