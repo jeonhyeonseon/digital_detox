@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MemberChallengeRepository extends JpaRepository<MemberChallenge, Long> {
@@ -16,5 +17,5 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
 
     List<MemberChallenge> findAllByMemberAndMemberChallengeStatus(Member member, MemberChallengeStatus memberChallengeStatus);
 
-    MemberChallenge findByMemberChallengeIdAndMember(Long memberChallengeId, Member member);
+    Optional<MemberChallenge> findByMemberChallengeIdAndMember(Long memberChallengeId, Member member);
 }

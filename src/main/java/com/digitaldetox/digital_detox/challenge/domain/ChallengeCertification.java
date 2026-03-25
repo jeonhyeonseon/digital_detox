@@ -36,4 +36,12 @@ public class ChallengeCertification {
 
     @Column(nullable = false)
     private LocalDateTime certificationDate;
+
+    public ChallengeCertification(MemberChallenge memberChallenge, int certificationDay, String reviewContent, Mood mood, LocalDateTime certificationDate) {
+        this.memberChallenge = memberChallenge;
+        this.dayNumber = certificationDay;
+        this.reviewContent = reviewContent;
+        this.mood = mood;
+        this.certificationDate = certificationDate;
+    }
 }
