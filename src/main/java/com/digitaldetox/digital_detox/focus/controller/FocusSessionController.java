@@ -1,9 +1,11 @@
 package com.digitaldetox.digital_detox.focus.controller;
 
+import com.digitaldetox.digital_detox.auth.service.CustomUserDetails;
 import com.digitaldetox.digital_detox.focus.dto.*;
 import com.digitaldetox.digital_detox.focus.service.FocusSessionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,8 +38,8 @@ public class FocusSessionController {
     }
 
     @GetMapping("/today")
-    public FocusSessionTodayRecordResponseDto todaySession(@RequestParam Long memberId) {
+    public FocusSessionTodayRecordResponseDto todaySession(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
-        return focusSessionService.todaySession(memberId);
+        return focusSessionService.todaySession(customUserDetails.getMemberId());
     }
 }
