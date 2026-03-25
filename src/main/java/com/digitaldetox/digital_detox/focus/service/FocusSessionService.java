@@ -104,10 +104,12 @@ public class FocusSessionService {
 
     public FocusSessionTodayRecordResponseDto todaySession(Long memberId) {
 
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원정보입니다."));
+
         LocalDateTime startOfDay = LocalDateTime.now().toLocalDate().atStartOfDay();
         LocalDateTime endOfDay = startOfDay.plusDays(1);
 
-        List<FocusSession> completedSession = focusSessionRepository.findByMemberIdAndSessionStatusAndStartedAtBetween(memberId, SessionStatus.COMPLETED, startOfDay, endOfDay);
+        List<FocusSession> completedSession = focusSessionRepository.findByMemberAndSessionStatusAndStartedAtBetween(member, SessionStatus.COMPLETED, startOfDay, endOfDay);
 
         long completedCount = completedSession.size();
 
