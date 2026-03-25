@@ -36,4 +36,7 @@ public class MemberChallenge {
 
     private int streak; // 연속 수행 일수
 
+    public void updateStreak(int streak) {
+        this.streak = streak;
+    }
 }

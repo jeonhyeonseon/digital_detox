@@ -148,6 +148,17 @@ public class ChallengeService {
             throw new IllegalArgumentException("후기를 작성해야 합니다.");
         }
 
+        ChallengeCertification challengeCertification = new ChallengeCertification(
+                memberChallenge,
+                certificationDay,
+                certificationRequestDto.getReviewContent(),
+                certificationRequestDto.getMood(),
+                LocalDateTime.now()
+        );
+        challengeCertificationRepository.save(challengeCertification);
+
+        memberChallenge.updateStreak(memberChallenge.getStreak() + 1);
+
         return null;
     }
 }
