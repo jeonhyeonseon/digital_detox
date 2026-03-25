@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tbl_member_challenge")
@@ -36,7 +37,18 @@ public class MemberChallenge {
 
     private int streak; // 연속 수행 일수
 
+    private LocalDateTime completedAt; // 완료일
+
     public void updateStreak(int streak) {
         this.streak = streak;
+    }
+
+    public void completeChallenge(LocalDateTime completedAt) {
+        this.memberChallengeStatus = MemberChallengeStatus.COMPLETED;
+        this.completedAt = completedAt;
+    }
+
+    public void updateCurrentDay(int currentDay) {
+        this.currentDay = currentDay;
     }
 }

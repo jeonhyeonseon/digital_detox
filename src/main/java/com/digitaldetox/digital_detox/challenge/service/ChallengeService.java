@@ -159,6 +159,25 @@ public class ChallengeService {
 
         memberChallenge.updateStreak(memberChallenge.getStreak() + 1);
 
-        return null;
+        int durationDays = memberChallenge.getChallenge().getDurationDays();
+        if (certificationDay == durationDays) {
+            memberChallenge.completeChallenge(LocalDateTime.now());
+
+            return new ChallengeCertificationResponseDto(
+                    memberChallenge.getMemberChallengeId(),
+                    certificationDay,
+                    certificationDay,
+                    true
+            );
+        }
+
+        memberChallenge.updateCurrentDay(currentDay + 1);
+
+        return new ChallengeCertificationResponseDto(
+                memberChallenge.getMemberChallengeId(),
+                certificationDay,
+                currentDay,
+                false
+        );
     }
 }
