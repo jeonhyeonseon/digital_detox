@@ -87,7 +87,8 @@ public class ChallengeService {
                 LocalDate.now(),
                 1,
                 MemberChallengeStatus.IN_PROGRESS,
-                0
+                0,
+                null
         );
 
         MemberChallenge savedMemberChallenge = memberChallengeRepository.save(memberChallenge);
