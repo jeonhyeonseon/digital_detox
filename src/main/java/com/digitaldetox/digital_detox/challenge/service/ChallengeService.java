@@ -1,5 +1,6 @@
 package com.digitaldetox.digital_detox.challenge.service;
 
+import com.digitaldetox.digital_detox.badge.service.BadgeService;
 import com.digitaldetox.digital_detox.challenge.domain.*;
 import com.digitaldetox.digital_detox.challenge.dto.*;
 import com.digitaldetox.digital_detox.challenge.repository.ChallengeCertificationRepository;
@@ -27,6 +28,7 @@ public class ChallengeService {
     private final MemberChallengeRepository memberChallengeRepository;
     private final MemberRepository memberRepository;
     private final ChallengeCertificationRepository challengeCertificationRepository;
+    private final BadgeService badgeService;
 
     public List<ChallengeListResponseDto> getChallengeList() {
 
@@ -163,6 +165,11 @@ public class ChallengeService {
         int durationDays = memberChallenge.getChallenge().getDurationDays();
         if (certificationDay == durationDays) {
             memberChallenge.completeChallenge(LocalDateTime.now());
+
+            badgeService.awardBadge(
+                    memberChallenge.getMember(),
+                    memberChallenge.getChallenge().getBadge()
+            );
 
             return new ChallengeCertificationResponseDto(
                     memberChallenge.getMemberChallengeId(),
