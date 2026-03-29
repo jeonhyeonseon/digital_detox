@@ -1,5 +1,6 @@
 package com.digitaldetox.digital_detox.challenge.dto;
 
+import com.digitaldetox.digital_detox.badge.domain.Badge;
 import com.digitaldetox.digital_detox.challenge.domain.ChallengeTheme;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +20,7 @@ public class ChallengeDetailResponseDto {
     private int difficulty;
     private ChallengeTheme challengeTheme;
     private String expectedEffect;
-    private String badge;
+    private Badge badge;
 
     private List<ChallengeMissionResponseDto> challengeMissionResponseDto;
 
