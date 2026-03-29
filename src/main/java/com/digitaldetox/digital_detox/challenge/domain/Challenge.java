@@ -1,5 +1,6 @@
 package com.digitaldetox.digital_detox.challenge.domain;
 
+import com.digitaldetox.digital_detox.badge.domain.Badge;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,5 +33,8 @@ public class Challenge {
 
     private String expectedEffect;
 
-    private String badge;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "badge_id", nullable = false)
+    private Badge badge;
+
 }
