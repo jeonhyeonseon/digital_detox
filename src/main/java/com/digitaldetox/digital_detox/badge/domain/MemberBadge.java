@@ -22,11 +22,11 @@ public class MemberBadge {
     private Long memberBadgeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "badge_id", nullable = false)
+    @JoinColumn(name = "badge_id", nullable = false)
     private Badge badge;
 
     @Column(nullable = false)

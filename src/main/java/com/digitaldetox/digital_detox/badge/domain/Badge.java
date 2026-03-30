@@ -22,7 +22,7 @@ public class Badge {
     private Long badgeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
     @Enumerated(EnumType.STRING)
