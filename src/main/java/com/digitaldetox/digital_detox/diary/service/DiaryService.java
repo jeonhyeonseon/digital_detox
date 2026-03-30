@@ -47,7 +47,7 @@ public class DiaryService {
 
         LocalDate yesterday = diaryDate.minusDays(1);
 
-        Integer screenTimeDifference = diaryRepository.findByMember_MemberIdAndDiaryDate(memberId, diaryDate)
+        Integer screenTimeDifference = diaryRepository.findByMember_MemberIdAndDiaryDate(memberId, yesterday)
                                                         .map(yesterdayDiary -> diary.getScreenTime() - yesterdayDiary.getScreenTime())
                                                         .orElse(null);
 
