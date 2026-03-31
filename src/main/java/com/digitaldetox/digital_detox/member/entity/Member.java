@@ -29,5 +29,7 @@ public class Member {
     @Column(nullable = false, unique = true)
     private String email;
 
+    private int level;
+
     private LocalDateTime joinedAt;
 }
