@@ -17,7 +17,7 @@ public interface FocusSessionRepository extends JpaRepository<FocusSession, Long
             select coalesce(sum(f.actualTime), 0)
             from FocusSession f
             where f.member.memberId = :memberId
-            and f.sessionStatus = :sessionStatus
+            and f.sessionStatus = com.digitaldetox.digital_detox.focus.domain.SessionStatus.COMPLETED
             and f.startedAt >= :startOfDay
             and f.startedAt < :endOfDay
             """)
