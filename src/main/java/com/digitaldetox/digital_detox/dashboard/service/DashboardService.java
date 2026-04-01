@@ -1,5 +1,7 @@
 package com.digitaldetox.digital_detox.dashboard.service;
 
+import com.digitaldetox.digital_detox.challenge.repository.MemberChallengeRepository;
+import com.digitaldetox.digital_detox.dashboard.dto.CurrentChallengeDto;
 import com.digitaldetox.digital_detox.dashboard.dto.DashboardResponseDto;
 import com.digitaldetox.digital_detox.dashboard.dto.TodaySummaryDto;
 import com.digitaldetox.digital_detox.dashboard.dto.WeeklyStatDto;
@@ -28,6 +30,7 @@ public class DashboardService {
     private final DiaryRepository diaryRepository;
     private final FocusSessionRepository focusSessionRepository;
     private final MemberRepository memberRepository;
+    private final MemberChallengeRepository memberChallengeRepository;
 
     public DashboardResponseDto getDashboard(Long memberId) {
 
@@ -36,6 +39,7 @@ public class DashboardService {
 
         TodaySummaryDto todaySummaryDto = getTodaySummary(memberId, today);
         List<WeeklyStatDto> weeklyStatDtoList = getWeeklyStat(memberId, weekStart, today);
+        CurrentChallengeDto currentChallengeDto = getCurrentChallenge(memberId);
 
         return null;
     }
@@ -90,6 +94,18 @@ public class DashboardService {
         }
 
         return weeklyStatDto;
+    }
+
+    // 진행 중인 챌린지
+    private CurrentChallengeDto getCurrentChallenge(Long memberId) {
+
+        return memberChallengeRepository.findCurrentChallenge(memberId)
+                .map(memberChallenge -> new CurrentChallengeDto(
+                        memberChallenge.getMemberChallengeId(),
+                        memberChallenge.getChallenge().getTitle(),
+                        memberChallenge.getCurrentDay(),
+                        memberChallenge.getChallenge().getDurationDays()
+                )).orElse(null);
     }
 }
 
