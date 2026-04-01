@@ -22,4 +22,15 @@ public interface FocusSessionRepository extends JpaRepository<FocusSession, Long
             and f.startedAt < :endOfDay
             """)
     int sumTodayFocusTime(Long memberId, LocalDateTime startOfDay, LocalDateTime endOfDay);
+
+    @Query("""
+            select f
+            from FocusSession f
+            where f.member.memberId = :memberId
+            and f.sessionStatus = com.digitaldetox.digital_detox.focus.domain.SessionStatus.COMPLETED
+            and f.startedAt >= :startDateTime
+            and f.startedAt < :endDateTime
+            order by f.startedAt asc
+            """)
+    List<FocusSession> findWeeklyFocusSessions(Long memberId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 }
