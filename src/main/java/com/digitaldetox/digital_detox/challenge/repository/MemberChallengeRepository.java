@@ -3,7 +3,7 @@ package com.digitaldetox.digital_detox.challenge.repository;
 import com.digitaldetox.digital_detox.challenge.domain.Challenge;
 import com.digitaldetox.digital_detox.challenge.domain.MemberChallenge;
 import com.digitaldetox.digital_detox.challenge.domain.MemberChallengeStatus;
-import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

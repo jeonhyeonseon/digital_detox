@@ -1,6 +1,6 @@
 package com.digitaldetox.digital_detox.community.post.domain;
 
-import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

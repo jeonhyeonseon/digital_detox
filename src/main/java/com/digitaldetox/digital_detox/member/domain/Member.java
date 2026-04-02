@@ -1,4 +1,4 @@
-package com.digitaldetox.digital_detox.member.entity;
+package com.digitaldetox.digital_detox.member.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

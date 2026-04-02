@@ -1,7 +1,7 @@
 package com.digitaldetox.digital_detox.auth.service;
 
 import com.digitaldetox.digital_detox.auth.dto.MemberSignupRequestDto;
-import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.domain.Member;
 import com.digitaldetox.digital_detox.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

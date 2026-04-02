@@ -2,7 +2,7 @@ package com.digitaldetox.digital_detox.focus.repository;
 
 import com.digitaldetox.digital_detox.focus.domain.FocusSession;
 import com.digitaldetox.digital_detox.focus.domain.SessionStatus;
-import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

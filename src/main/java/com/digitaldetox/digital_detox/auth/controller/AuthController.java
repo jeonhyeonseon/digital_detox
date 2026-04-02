@@ -5,7 +5,7 @@ import com.digitaldetox.digital_detox.auth.dto.MemberLoginResponseDto;
 import com.digitaldetox.digital_detox.auth.dto.MemberSignupRequestDto;
 import com.digitaldetox.digital_detox.auth.dto.MemberSignupResponseDto;
 import com.digitaldetox.digital_detox.auth.service.AuthService;
-import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.domain.Member;
 import com.digitaldetox.digital_detox.member.repository.MemberRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,6 +1,6 @@
 package com.digitaldetox.digital_detox.auth.service;
 
-import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.domain.Member;
 import com.digitaldetox.digital_detox.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
