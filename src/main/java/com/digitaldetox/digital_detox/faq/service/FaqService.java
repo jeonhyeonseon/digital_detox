@@ -1,6 +1,7 @@
 package com.digitaldetox.digital_detox.faq.service;
 
 import com.digitaldetox.digital_detox.faq.dto.FaqCreateRequestDto;
+import com.digitaldetox.digital_detox.faq.dto.FaqUpdateRequestDto;
 import com.digitaldetox.digital_detox.faq.entity.Faq;
 import com.digitaldetox.digital_detox.faq.repository.FaqRepository;
 import jakarta.transaction.Transactional;
@@ -23,5 +24,13 @@ public class FaqService {
                 .build();
 
         return faqRepository.save(faq).getFaqId();
+    }
+
+    public void updateFaq(Long faqId, @Valid FaqUpdateRequestDto faqUpdateRequestDto) {
+
+        Faq faq = faqRepository.findById(faqId)
+                                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 FAQ입니다."));
+
+        faq.update(faqUpdateRequestDto.getQuestion(), faqUpdateRequestDto.getAnswer());
     }
 }

@@ -1,6 +1,7 @@
 package com.digitaldetox.digital_detox.faq.controller;
 
 import com.digitaldetox.digital_detox.faq.dto.FaqCreateRequestDto;
+import com.digitaldetox.digital_detox.faq.dto.FaqUpdateRequestDto;
 import com.digitaldetox.digital_detox.faq.service.FaqService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +22,14 @@ public class AdminFaqController {
         Long faqId = faqService.createFaq(faqCreateRequestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(faqId);
+    }
+
+    @PutMapping("/{faqId}")
+    public ResponseEntity<Void> updateFaq(@PathVariable Long faqId,
+                                          @Valid @RequestBody FaqUpdateRequestDto faqUpdateRequestDto) {
+
+        faqService.updateFaq(faqId, faqUpdateRequestDto);
+
+        return ResponseEntity.ok().build();
     }
 }
