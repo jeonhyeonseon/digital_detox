@@ -31,5 +31,9 @@ public class Member {
 
     private int level;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
     private LocalDateTime joinedAt;
 }
