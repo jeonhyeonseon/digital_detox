@@ -1,6 +1,6 @@
 package com.digitaldetox.digital_detox.focus.domain;
 
-import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

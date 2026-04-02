@@ -7,7 +7,7 @@ import com.digitaldetox.digital_detox.community.comment.entity.Comment;
 import com.digitaldetox.digital_detox.community.comment.repository.CommentRepository;
 import com.digitaldetox.digital_detox.community.post.domain.Post;
 import com.digitaldetox.digital_detox.community.post.repository.PostRepository;
-import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.domain.Member;
 import com.digitaldetox.digital_detox.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

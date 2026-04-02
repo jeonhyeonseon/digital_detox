@@ -4,7 +4,7 @@ import com.digitaldetox.digital_detox.focus.domain.FocusSession;
 import com.digitaldetox.digital_detox.focus.domain.SessionStatus;
 import com.digitaldetox.digital_detox.focus.dto.*;
 import com.digitaldetox.digital_detox.focus.repository.FocusSessionRepository;
-import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.domain.Member;
 import com.digitaldetox.digital_detox.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

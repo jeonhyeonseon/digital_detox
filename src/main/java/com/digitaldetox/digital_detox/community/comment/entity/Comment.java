@@ -2,7 +2,7 @@ package com.digitaldetox.digital_detox.community.comment.entity;
 
 import com.digitaldetox.digital_detox.community.comment.dto.CommentCreatedRequestDto;
 import com.digitaldetox.digital_detox.community.post.domain.Post;
-import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -7,7 +7,7 @@ import com.digitaldetox.digital_detox.challenge.repository.ChallengeCertificatio
 import com.digitaldetox.digital_detox.challenge.repository.ChallengeMissionRepository;
 import com.digitaldetox.digital_detox.challenge.repository.ChallengeRepository;
 import com.digitaldetox.digital_detox.challenge.repository.MemberChallengeRepository;
-import com.digitaldetox.digital_detox.member.entity.Member;
+import com.digitaldetox.digital_detox.member.domain.Member;
 import com.digitaldetox.digital_detox.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
