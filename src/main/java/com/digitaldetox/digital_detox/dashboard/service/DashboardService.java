@@ -1,10 +1,8 @@
 package com.digitaldetox.digital_detox.dashboard.service;
 
+import com.digitaldetox.digital_detox.challenge.domain.MemberChallengeStatus;
 import com.digitaldetox.digital_detox.challenge.repository.MemberChallengeRepository;
-import com.digitaldetox.digital_detox.dashboard.dto.CurrentChallengeDto;
-import com.digitaldetox.digital_detox.dashboard.dto.DashboardResponseDto;
-import com.digitaldetox.digital_detox.dashboard.dto.TodaySummaryDto;
-import com.digitaldetox.digital_detox.dashboard.dto.WeeklyStatDto;
+import com.digitaldetox.digital_detox.dashboard.dto.*;
 import com.digitaldetox.digital_detox.diary.domain.Diary;
 import com.digitaldetox.digital_detox.diary.repository.DiaryRepository;
 import com.digitaldetox.digital_detox.focus.domain.FocusSession;
@@ -100,7 +98,7 @@ public class DashboardService {
     // 진행 중인 챌린지
     private CurrentChallengeDto getCurrentChallenge(Long memberId) {
 
-        return memberChallengeRepository.findCurrentChallenge(memberId)
+        return memberChallengeRepository.findCurrentChallenge(memberId, MemberChallengeStatus.COMPLETED)
                 .map(memberChallenge -> new CurrentChallengeDto(
                         memberChallenge.getMemberChallengeId(),
                         memberChallenge.getChallenge().getTitle(),
@@ -145,6 +143,23 @@ public class DashboardService {
         score +=  20;
 
         return Math.min(score, 100);
+    }
+
+    // 다음 뱃지
+    private NextBadgeDto getNextBadge(Long memberId) {
+
+        return memberChallengeRepository.findCurrentChallenge(memberId, MemberChallengeStatus.COMPLETED)
+                .map(memberChallenge -> {
+                    int total = memberChallenge.getChallenge().getDurationDays();
+                    int current = memberChallenge.getCurrentDay();
+
+                    int remainingDay = Math.max(total - current, 0);
+
+                    return new NextBadgeDto(
+                            memberChallenge.getChallenge().getBadge().getBadgeType(),
+                            remainingDay
+                    );
+                }).orElse(null);
     }
 }
 
