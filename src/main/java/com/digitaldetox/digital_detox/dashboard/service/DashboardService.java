@@ -1,10 +1,8 @@
 package com.digitaldetox.digital_detox.dashboard.service;
 
+import com.digitaldetox.digital_detox.challenge.domain.MemberChallengeStatus;
 import com.digitaldetox.digital_detox.challenge.repository.MemberChallengeRepository;
-import com.digitaldetox.digital_detox.dashboard.dto.CurrentChallengeDto;
-import com.digitaldetox.digital_detox.dashboard.dto.DashboardResponseDto;
-import com.digitaldetox.digital_detox.dashboard.dto.TodaySummaryDto;
-import com.digitaldetox.digital_detox.dashboard.dto.WeeklyStatDto;
+import com.digitaldetox.digital_detox.dashboard.dto.*;
 import com.digitaldetox.digital_detox.diary.domain.Diary;
 import com.digitaldetox.digital_detox.diary.repository.DiaryRepository;
 import com.digitaldetox.digital_detox.focus.domain.FocusSession;
@@ -40,6 +38,7 @@ public class DashboardService {
         TodaySummaryDto todaySummaryDto = getTodaySummary(memberId, today);
         List<WeeklyStatDto> weeklyStatDtoList = getWeeklyStat(memberId, weekStart, today);
         CurrentChallengeDto currentChallengeDto = getCurrentChallenge(memberId);
+        int healthScore = calculateHealthScore(memberId, today);
 
         return null;
     }
@@ -99,13 +98,68 @@ public class DashboardService {
     // 진행 중인 챌린지
     private CurrentChallengeDto getCurrentChallenge(Long memberId) {
 
-        return memberChallengeRepository.findCurrentChallenge(memberId)
+        return memberChallengeRepository.findCurrentChallenge(memberId, MemberChallengeStatus.COMPLETED)
                 .map(memberChallenge -> new CurrentChallengeDto(
                         memberChallenge.getMemberChallengeId(),
                         memberChallenge.getChallenge().getTitle(),
                         memberChallenge.getCurrentDay(),
                         memberChallenge.getChallenge().getDurationDays()
                 )).orElse(null);
+    }
+
+    // 건강도 점수
+    /**
+     * 오늘 스크린타임이 3시간(180분) 이하: +40
+     * 오늘 포커스 시간이 1시간(60분) 이상: +30
+     * 기본 점수: 20d
+     * @param memberId
+     * @param today
+     * @return
+     */
+    private int calculateHealthScore(Long memberId, LocalDate today) {
+
+        int score = 0;
+
+        int todayScreenTime = diaryRepository.findByMember_MemberIdAndDiaryDate(memberId, today)
+                                                .map(Diary::getScreenTime).orElse(0);
+
+        LocalDateTime start = today.atStartOfDay();
+        LocalDateTime end = start.plusDays(1);
+
+        int focusTime = focusSessionRepository.sumTodayFocusTime(memberId, start, end);
+
+        if (todayScreenTime <= 180) {
+            score += 40;
+        } else if (todayScreenTime <= 240) {
+            score += 20;
+        }
+
+        if (focusTime >= 60) {
+            score += 30;
+        } else if (focusTime >= 30) {
+            score += 15;
+        }
+
+        score +=  20;
+
+        return Math.min(score, 100);
+    }
+
+    // 다음 뱃지
+    private NextBadgeDto getNextBadge(Long memberId) {
+
+        return memberChallengeRepository.findCurrentChallenge(memberId, MemberChallengeStatus.COMPLETED)
+                .map(memberChallenge -> {
+                    int total = memberChallenge.getChallenge().getDurationDays();
+                    int current = memberChallenge.getCurrentDay();
+
+                    int remainingDay = Math.max(total - current, 0);
+
+                    return new NextBadgeDto(
+                            memberChallenge.getChallenge().getBadge().getBadgeType(),
+                            remainingDay
+                    );
+                }).orElse(null);
     }
 }
 

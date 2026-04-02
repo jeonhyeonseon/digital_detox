@@ -27,5 +27,5 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
             where mc.member.memberId = :memberId
             and mc.memberChallengeStatus = :status
             """)
-    Optional<MemberChallenge> findCurrentChallenge(Long memberId);
+    Optional<MemberChallenge> findCurrentChallenge(Long memberId, MemberChallengeStatus status);
 }
