@@ -34,7 +34,7 @@ public class Challenge {
     private String expectedEffect;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "badge_id", nullable = false)
+    @JoinColumn(name = "badge_id", nullable = false)
     private Badge badge;
 
 }
