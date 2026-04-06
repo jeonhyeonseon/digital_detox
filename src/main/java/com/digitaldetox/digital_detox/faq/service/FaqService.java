@@ -17,13 +17,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FaqService {
 
-    private FaqRepository faqRepository;
+    private final FaqRepository faqRepository;
 
-    public List<FaqResponseDto> getFaq() {
+    public List<FaqResponseDto> getFaqs() {
 
         return faqRepository.findAll().stream()
                             .map(FaqResponseDto::fromFaq)
                             .toList();
+    }
+
+
+    public FaqResponseDto getFaq(Long faqId) {
+
+        Faq faq = faqRepository.findById(faqId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 FAQ입니다."));
+
+        return FaqResponseDto.fromFaq(faq);
     }
 
     public Long createFaq(@Valid FaqCreateRequestDto faqCreateRequestDto) {
