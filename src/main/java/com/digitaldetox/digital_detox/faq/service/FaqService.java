@@ -33,4 +33,11 @@ public class FaqService {
 
         faq.update(faqUpdateRequestDto.getQuestion(), faqUpdateRequestDto.getAnswer());
     }
+
+    public void deleteFaq(Long faqId) {
+        
+        Faq faq = faqRepository.findById(faqId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 FAQ입니다."));
+
+        faqRepository.delete(faq);
+    }
 }
