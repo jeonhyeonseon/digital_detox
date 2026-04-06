@@ -40,11 +40,19 @@ public class WebSecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // 비회원 포함 전체 허용
                         .requestMatchers(
                                 "/",
                                 "/auth/signup",
-                                "/auth/login"
+                                "/auth/login",
+                                "/faqs",
+                                "/faqs/**"
                         ).permitAll()
+
+                        // 관리자만 허용
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+
+                        // 그 외는 로그인 필요
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())
