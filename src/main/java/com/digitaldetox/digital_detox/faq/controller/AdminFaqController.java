@@ -32,4 +32,12 @@ public class AdminFaqController {
 
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/{faqId}")
+    public ResponseEntity<Void> deleteFaq(@PathVariable Long faqId) {
+
+        faqService.deleteFaq(faqId);
+
+        return ResponseEntity.noContent().build();
+    }
 }
