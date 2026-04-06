@@ -1,6 +1,7 @@
 package com.digitaldetox.digital_detox.faq.service;
 
 import com.digitaldetox.digital_detox.faq.dto.FaqCreateRequestDto;
+import com.digitaldetox.digital_detox.faq.dto.FaqResponseDto;
 import com.digitaldetox.digital_detox.faq.dto.FaqUpdateRequestDto;
 import com.digitaldetox.digital_detox.faq.entity.Faq;
 import com.digitaldetox.digital_detox.faq.repository.FaqRepository;
@@ -9,12 +10,21 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class FaqService {
 
     private FaqRepository faqRepository;
+
+    public List<FaqResponseDto> getFaq() {
+
+        return faqRepository.findAll().stream()
+                            .map(FaqResponseDto::fromFaq)
+                            .toList();
+    }
 
     public Long createFaq(@Valid FaqCreateRequestDto faqCreateRequestDto) {
 
